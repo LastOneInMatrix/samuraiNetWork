@@ -1,6 +1,6 @@
 import {MessagePropsType} from "../Dialogs/Message/Message";
 import {v1} from "uuid";
-import {ActionsType} from "./MyReduxStore";
+import {ActionsType} from "./redux-store";
 import {DialogItemPropsType} from "../Dialogs/Dialog/Dialog";
 
 
@@ -31,9 +31,11 @@ let initialState: dialogPageType = {
 const CHANGE_MESSAGE_TEXT = 'CHANGE_MESSAGE_TEXT';
 const ADD_MESSAGE = 'ADD_MESSAGE';
 
-type AC = (text: string) => ({type: "CHANGE_MESSAGE_TEXT", text: string}) //Todo разобраться откуда это
+// type AC = (text: string) => ({type: "CHANGE_MESSAGE_TEXT", text: string}) //Todo разобраться откуда это
+// type changeMessageTextActionCreatorType = ReturnType<typeof changeMessageTextActionCreator>  //эта запись автоматом генерит возвращаемый тайп функции, поэтому дописывать какой тип возвращает функция не требуется
 
 export const changeMessageTextActionCreator = (text: string) => ({type: CHANGE_MESSAGE_TEXT, text} as const);
+
 export const addMessagesActionCreator = (newMessageText: string) => {
     return {
         type: ADD_MESSAGE,

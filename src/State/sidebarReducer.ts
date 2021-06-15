@@ -1,4 +1,4 @@
-import {ActionsType} from "./MyReduxStore";
+import {ActionsType} from "./redux-store";
 
 let initialState = {};
 
