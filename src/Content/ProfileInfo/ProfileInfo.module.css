@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Zilla+Slab+Highlight:wght@700&display=swap');
+.main{
+    border: 1px solid;
+}
+img{
+    width: 100px;
+    margin: 10px;
+}
+.title{
+    font-size: 30px;
+    /*text-decoration: line-through;*/
+    font-family: 'Zilla Slab Highlight', cursive;
+
+}

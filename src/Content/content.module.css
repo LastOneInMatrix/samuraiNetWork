@@ -1,0 +1,14 @@
+.main {
+    display: grid;
+    padding: 20px;
+    border: 1px solid coral;
+    color: #1e2424;
+}
+.textAreaPosts{
+    margin: 10px 0px;
+    max-width: 200px;
+    padding: 10px;
+    box-shadow: -1px 2px 5px 12px red;
+    border: thick double #426a7b;
+    border-radius: 10px 10px 0px 0px;
+}

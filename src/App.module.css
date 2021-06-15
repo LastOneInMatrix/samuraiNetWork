@@ -1,0 +1,20 @@
+.App {
+      display: grid;
+      grid-template-areas:
+      "header header header"
+      "nav main main"
+       "footer footer footer";
+      grid-template-rows: 50px 2fr 30px;
+      grid-template-columns: 10% 2fr 10%;
+      padding: 10px;
+      border: 1px solid coral;
+      color: #2cb6b6;
+}
+.AppWrapper {
+      padding: 25px;
+      font-family: 'Roboto Mono', monospace;
+      grid-area: main;
+      box-shadow: 1px 1px 10px rgba(129, 129, 184, 0.7);
+}
+
+

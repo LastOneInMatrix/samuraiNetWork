@@ -1,0 +1,9 @@
+.main{
+    text-align: center;
+
+    /*margin: auto 0;*/
+    grid-area: footer;
+    padding: 12px;
+    box-shadow: 1px 1px 10px rgba(129, 129, 184, 0.7);
+}
+

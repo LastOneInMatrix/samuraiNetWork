@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Redressed&display=swap');
+
+.main {
+    font-family: 'Redressed', cursive;
+    font-weight: bold;
+    grid-area: header;
+    box-shadow: 1px 1px 10px rgba(129, 129, 184, 0.7);
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.main  img{
+    width: 50px;
+    align-self: start;
+
+    flex-grow: 0;
+}
+.main  img:hover {
+    /*margin: 20px;*/
+    /*width:  22px;*/
+    opacity: 0.5;
+    /*order: 2;*/
+
+}

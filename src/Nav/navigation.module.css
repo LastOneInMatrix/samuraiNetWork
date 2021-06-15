@@ -1,0 +1,9 @@
+.main {
+    grid-area: nav;
+    border: 1px solid coral;
+    color: aqua;
+}
+ul { background-color: wheat}
+.main a.active{
+    color: red;
+}

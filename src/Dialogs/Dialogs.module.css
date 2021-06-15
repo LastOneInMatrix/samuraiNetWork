@@ -1,0 +1,33 @@
+.dialogs{
+    display: grid;
+    grid-template-columns: 2fr 10fr;
+}
+.dialogsItems{
+    margin: 0px 10px 0px 0px;
+}
+
+.messages{
+    border: 1px groove #807a7a;
+    border-radius: 20px;
+    padding: 10px
+}
+
+.dialog{
+    padding: 5px;
+}
+
+.message{
+    padding: 5px;
+}
+.dialogsItems .active{
+    color: coral;
+    box-shadow: 5px 5px 10px red;
+}
+
+#messageArea{
+    padding: 10px;
+    line-height: 1;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-shadow: 1px 1px 1px #999;
+}
