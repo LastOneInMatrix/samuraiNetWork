@@ -6,7 +6,7 @@ import {
     ActionsType,
     arrayDialog,
     arrayMessages,
-} from "../State/redux";
+} from "../State/MyReduxStore";
 import {addMessagesActionCreator, changeMessageTextActionCreator} from '../State/dialogReducer'
 
 type DialogsPropsTypes = {
@@ -25,11 +25,11 @@ export const Dialogs: React.FC<DialogsPropsTypes> = ({dispatch, ...props}) => {
 
 
 //UI
-    const dialogsDataJsx: Array<JSX.Element> = props.dialogs.map((e, i, a) => {
+    const dialogsDataJsx: Array<JSX.Element> = props.dialogs.map((e) => {
         return e.id == 1 ? <DialogItem name={e.name} id={e.id} isActive={true}/> :
             <DialogItem name={e.name} id={e.id} isActive={isActive}/>
     });
-    const messagesDataJsx: Array<JSX.Element> = props.messages.map((e, i, a) => {
+    const messagesDataJsx: Array<JSX.Element> = props.messages.map((e) => {
         return <Message message={e.message} id={e.id}/>
     });
 

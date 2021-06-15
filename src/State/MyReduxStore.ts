@@ -3,6 +3,7 @@ import {MessagePropsType} from "../Dialogs/Message/Message";
 import {DialogItemPropsType} from "../Dialogs/Dialog/Dialog";
 import {addMessagesActionCreator, changeMessageTextActionCreator, dialogReducer} from "./dialogReducer";
 import {addPostActionCreator, changeTextActionCreator, profileReducer} from "./profileReducer";
+import {showSidebarActionCreator, sidebarReducer} from "./sidebarReducer";
 
 
 export type arrayPostsTypes = Array<PostPropsType>
@@ -28,7 +29,9 @@ export type rootStateType = {
 export type ActionsType =
     ReturnType<typeof changeMessageTextActionCreator> |  //returnType - берет у типа функции и отсекает только возвращаемую часть
     ReturnType<typeof addMessagesActionCreator> |
-    ReturnType<typeof addPostActionCreator> | ReturnType<typeof changeTextActionCreator>;  // typeof - берет полностью функцию и создает для нее конретный тип
+    ReturnType<typeof addPostActionCreator> |
+    ReturnType<typeof changeTextActionCreator>|
+    ReturnType<typeof showSidebarActionCreator>;  // typeof - берет полностью функцию и создает для нее конретный тип
 
 export type storeType = {
     _state: rootStateType;
@@ -100,6 +103,7 @@ export const store: storeType = {
     dispatch(action) {
         this._state.dialogPage = dialogReducer(this._state.dialogPage, action);
         this._state.profilePage = profileReducer(this._state.profilePage, action);
+        this._state.sidebar = sidebarReducer(this._state.sidebar, action)
         this._subscriber();
     }
 }

@@ -1,5 +1,4 @@
-
-import {store} from './State/redux';
+import {store} from './State/redux-store';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';

@@ -4,7 +4,7 @@ import {
     BrowserRouter,
     Redirect
 } from "react-router-dom";
-import {ActionsType, rootStateType,} from "./State/redux";
+import {ActionsType, rootStateType,} from "./State/MyReduxStore";
 
 import {Content} from "./Content/Content";
 import {Footer} from "./Footer/Footer";

@@ -1,8 +1,8 @@
 import React, {} from 'react';
-import {Post, PostPropsType} from '../Content/Posts/Post'
+import {Post} from '../Content/Posts/Post'
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import style from './content.module.css';
-import {ActionsType, arrayPostsTypes} from "../State/redux";
+import {ActionsType, arrayPostsTypes} from "../State/MyReduxStore";
 
 
 

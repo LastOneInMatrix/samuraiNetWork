@@ -1,6 +1,6 @@
 import React, {ChangeEvent} from 'react';
 import style from './ProfileInfo.module.css'
-import {ActionsType} from "../../State/redux";
+import {ActionsType} from "../../State/MyReduxStore";
 import {addPostActionCreator, changeTextActionCreator} from "../../State/profileReducer";
 
 
@@ -25,7 +25,6 @@ export const ProfileInfo: React.FC<ProfileInfoPropsType> = (props) => {
     };
 
     const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        debugger;
         dispatch(changeTextActionCreator(e.currentTarget.value)); // todo почему не работает без newPostText (потому что прописан тип экшена конкретный)
     };
     return <div className={style.main}>
