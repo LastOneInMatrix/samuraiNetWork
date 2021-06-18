@@ -10,19 +10,17 @@ export type ActionsType =
     ReturnType<typeof changeTextActionCreator> |
     ReturnType<typeof showSidebarActionCreator>;  // typeof - берет полностью функцию и создает для нее конретный тип
 
-let reducers = combineReducers({
+let rootReducers = combineReducers({
     profilePage: profileReducer,
     dialogPage: dialogReducer,
     sidebar: sidebarReducer
 });
-console.log(reducers)
 
-//type RootReducerType = typeof reducers //(state: AppStateTYPE) => AppStateTYPE;
-    export type AppStateType = ReturnType<typeof reducers>; //тип стейта ----
-    export type AppStoreType = typeof store
+    export type AppStateType = ReturnType<typeof rootReducers> //тип стейта ----
+    export type AppStoreType = typeof store // тип стор
 // rootReducer - это функция, которая возвращает state всего приложения.
 // И чтобы вернуть то, что возвращает функция воспользуем ReturnType
 // Чтобы динамически создать тип который нам возвращает rootReducer, воспользуемся оператором ReturnType
 // Оператор ReturnType анализирует тип переданный в нее функции (rootReducer) и берет ее возвращаемый тип
 
-export let store = createStore(reducers);
+export let store = createStore(rootReducers);

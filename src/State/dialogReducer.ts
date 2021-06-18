@@ -36,25 +36,25 @@ const ADD_MESSAGE = 'ADD_MESSAGE';
 
 export const changeMessageTextActionCreator = (text: string) => ({type: CHANGE_MESSAGE_TEXT, text} as const);
 
-export const addMessagesActionCreator = (newMessageText: string) => {
+export const addMessagesActionCreator = () => {
     return {
         type: ADD_MESSAGE,
-        text: newMessageText
     } as const;
 }
 
 export const dialogReducer = (state:dialogPageType = initialState, action:ActionsType):dialogPageType => {
     switch (action.type) {
         case CHANGE_MESSAGE_TEXT:
-            state.newMessageText = action.text;
-            return state;
+            return {...state, newMessageText: action.text};
         case ADD_MESSAGE:
             let newMessage: MessagePropsType = {
-                id: v1(), message: '-' + action.text // a здесь мы юзаем text из actionCreator
+                id: v1(), message: '-' + state.newMessageText // a здесь мы юзаем text из actionCreator
             }
-            state.messagesData.push(newMessage);
-            state.newMessageText = '';
-            return state;
+            return {
+                ...state,
+                messagesData: [...state.messagesData, newMessage],
+                newMessageText: ''
+            }
         default:
             return state;
     }

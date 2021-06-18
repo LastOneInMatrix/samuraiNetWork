@@ -52,12 +52,14 @@ export const profileReducer = (state: profilePageType = initialState, action: Ac
                 text: state.newPostText, // здесь мы юзаем newPostText из стейта
                 likes: 0,
             }
-            state.posts.push(newPost);
-            state.newPostText = '';
-            return state;
+            return {
+                ...state,
+                posts: [...state.posts, newPost],
+                newPostText: ''
+            }
         case CHANGE_TEXT:
-            state.newPostText = action.newPostText;
-            return state;
+            // state.newPostText = action.newPostText;
+            return {...state, newPostText: action.newPostText};
         default:
             return state;
     }

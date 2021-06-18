@@ -8,9 +8,8 @@ import {Content} from "./Content/Content";
 import {Footer} from "./Footer/Footer";
 import {Navigation} from "./Nav/Navigation";
 import {Header} from "./Header/Header";
-import style from './App.module.css';
 import {DialogsContainer} from "./Dialogs/DialogsContainer";
-
+ import style from './App.module.css';
 
 type AppPropsType = {
 

@@ -1,15 +1,18 @@
 import React, {ChangeEvent} from 'react';
 import style from './ProfileInfo.module.css';
+import {Post} from "../Posts/Post";
+import {arrayPostsTypes} from "../../State/profileReducer";
 
 
 
 type ProfileInfoPropsType = {
-    img: string,
-    title: string,
-    placeholder: string,
-    newPostText: string,
+    img: string;
+    title: string;
+    placeholder: string;
+    posts: arrayPostsTypes;
+    newPostText: string;
     updateNewPostText: (text: string) => void;
-    addPost: () => void
+    addPost: () => void;
 }
 export const ProfileInfo: React.FC<ProfileInfoPropsType> = (props) => {
 
@@ -20,7 +23,7 @@ export const ProfileInfo: React.FC<ProfileInfoPropsType> = (props) => {
     const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
          props.updateNewPostText(e.currentTarget.value);
     };
-
+    const postsJSX: Array<JSX.Element> = props.posts.map(post => < Post id={post.id} text={post.text}  likes={post.likes} avatar={post.avatar}/>)
     return <div className={style.main}>
         <h3 className={style.title}>{props.title}</h3>
         <img src={props.img} alt={'textPicture'}/>
@@ -33,6 +36,6 @@ export const ProfileInfo: React.FC<ProfileInfoPropsType> = (props) => {
         >
         </textarea> <br/>
         <button onClick={onAddPost}>add post</button>
-
+        {postsJSX}
     </div>
 }

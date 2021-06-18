@@ -19,12 +19,11 @@ export const Dialogs: React.FC<DialogsPropsTypes> = ({dialogPage, ...props}) => 
     let state = dialogPage;
 
     const onChangeTextHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        console.log(props.onChangeTextHandler, e.currentTarget.value )
         props.onChangeTextHandler(e.currentTarget.value)
-        // dispatch(changeMessageTextActionCreator(e.currentTarget.value));
     };
     const addMessage = () => {
         props.addMessage()
-        //  dispatch(addMessagesActionCreator(props.newMessageText));
     };
 //UI
     const dialogsDataJsx: Array<JSX.Element> = state.dialogsData.map((e) => {

@@ -1,10 +1,10 @@
-import {AppStateType, store} from './State/redux-store';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import {Provider} from "react-redux";
+import {store} from './State/redux-store';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {Provider} from "./StoreContext";
+import './index.css';
 
 
 export let rerenderEntireTree = () => {
