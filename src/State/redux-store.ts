@@ -15,9 +15,11 @@ let reducers = combineReducers({
     dialogPage: dialogReducer,
     sidebar: sidebarReducer
 });
+console.log(reducers)
 
-type RootReducerType = typeof reducers //(state: AppStateTYPE) => AppStateTYPE;
-export type AppStateType = ReturnType<RootReducerType>; //тип стейта ----
+//type RootReducerType = typeof reducers //(state: AppStateTYPE) => AppStateTYPE;
+    export type AppStateType = ReturnType<typeof reducers>; //тип стейта ----
+export type AppStoreType = typeof store
 // rootReducer - это функция, которая возвращает state всего приложения.
 // И чтобы вернуть то, что возвращает функция воспользуем ReturnType
 // Чтобы динамически создать тип который нам возвращает rootReducer, воспользуемся оператором ReturnType

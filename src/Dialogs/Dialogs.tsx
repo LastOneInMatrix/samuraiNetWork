@@ -2,43 +2,38 @@ import React, {ChangeEvent} from 'react';
 import {DialogItem} from './Dialog/Dialog';
 import {Message} from './Message/Message'
 import styles from './Dialogs.module.css';
-import {
-    ActionsType,
-    arrayDialog,
-    arrayMessages,
-} from "../State/MyReduxStore";
-import {addMessagesActionCreator, changeMessageTextActionCreator} from '../State/dialogReducer'
+import {dialogPageType} from "../State/MyReduxStore";
 
 type DialogsPropsTypes = {
     page: number;
     isActive?: boolean;
-    messages: arrayMessages;
-    newMessageText: string;
-    dialogs:arrayDialog;
-    dispatch: (action: ActionsType) => void;
+    dialogPage: dialogPageType;
+    onChangeTextHandler: (text: string) => void;
+    addMessage: ()=>void;
 }
 
 
-export const Dialogs: React.FC<DialogsPropsTypes> = ({dispatch, ...props}) => {
+export const Dialogs: React.FC<DialogsPropsTypes> = ({dialogPage, ...props}) => {
 //BLL
     let {page = 1, isActive = false} = props;
+    let state = dialogPage;
 
-
+    const onChangeTextHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        props.onChangeTextHandler(e.currentTarget.value)
+        // dispatch(changeMessageTextActionCreator(e.currentTarget.value));
+    };
+    const addMessage = () => {
+        props.addMessage()
+        //  dispatch(addMessagesActionCreator(props.newMessageText));
+    };
 //UI
-    const dialogsDataJsx: Array<JSX.Element> = props.dialogs.map((e) => {
+    const dialogsDataJsx: Array<JSX.Element> = state.dialogsData.map((e) => {
         return e.id == 1 ? <DialogItem name={e.name} id={e.id} isActive={true}/> :
             <DialogItem name={e.name} id={e.id} isActive={isActive}/>
     });
-    const messagesDataJsx: Array<JSX.Element> = props.messages.map((e) => {
+    const messagesDataJsx: Array<JSX.Element> = state.messagesData.map((e) => {
         return <Message message={e.message} id={e.id}/>
     });
-
-    const onChangeTextHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        dispatch(changeMessageTextActionCreator(e.currentTarget.value));
-    }
-    const addMessage = () => {
-        dispatch(addMessagesActionCreator(props.newMessageText));
-    }
 
     return (
         <div className={styles.dialogs}>
@@ -49,7 +44,7 @@ export const Dialogs: React.FC<DialogsPropsTypes> = ({dispatch, ...props}) => {
                 {messagesDataJsx}
             </div>
             <div>
-                <textarea id={styles.messageArea} value={props.newMessageText} onChange={onChangeTextHandler}></textarea>
+                <textarea id={styles.messageArea} value={state.newMessageText} onChange={onChangeTextHandler}>haha</textarea>
                 <button onClick={addMessage}>sent messages</button>
             </div>
         </div>
