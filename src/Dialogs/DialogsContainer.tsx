@@ -2,25 +2,30 @@ import React from 'react';
 
 import {addMessagesActionCreator, changeMessageTextActionCreator} from '../State/dialogReducer'
 import {Dialogs} from "./Dialogs";
-import {AppStoreType} from "../State/redux-store";
+import StoreContext from '../StoreContext';
 
 type DialogsPropsTypes = {
     page: number;
     isActive?: boolean;
-    store:AppStoreType;
 };
 
 
-export const DialogsContainer: React.FC<DialogsPropsTypes> = ({store, ...props}) => {
-//BLL
-    const dialogPage = store.getState().dialogPage;
+export const DialogsContainer: React.FC<DialogsPropsTypes> = ({...props}) => {
 
-    const onChangeTextHandler = (text: string) => {
-        store.dispatch(changeMessageTextActionCreator(text));
-    };
-    const addMessage = () => {
-        store.dispatch(addMessagesActionCreator(dialogPage.newMessageText));
-    };
-    return <Dialogs onChangeTextHandler={onChangeTextHandler} dialogPage={dialogPage} addMessage={addMessage} page={props.page} />
+    return <StoreContext.Consumer >
+        {(store) => {
+            const dialogPage = store.getState().dialogPage;
+
+            const onChangeTextHandler = (text: string) => {
+                store.dispatch(changeMessageTextActionCreator(text));
+            };
+            const addMessage = () => {
+                store.dispatch(addMessagesActionCreator(dialogPage.newMessageText));
+            };
+           return <Dialogs onChangeTextHandler={onChangeTextHandler} dialogPage={dialogPage} addMessage={addMessage} page={props.page} />
+        }}
+    </StoreContext.Consumer>
+
+
 
 }

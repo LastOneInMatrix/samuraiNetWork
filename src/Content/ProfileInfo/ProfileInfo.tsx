@@ -1,5 +1,5 @@
 import React, {ChangeEvent} from 'react';
-import style from './ProfileInfo.module.css'
+import style from './ProfileInfo.module.css';
 
 
 
@@ -33,5 +33,6 @@ export const ProfileInfo: React.FC<ProfileInfoPropsType> = (props) => {
         >
         </textarea> <br/>
         <button onClick={onAddPost}>add post</button>
+
     </div>
 }
