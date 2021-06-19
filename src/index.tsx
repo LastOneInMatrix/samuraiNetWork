@@ -6,19 +6,14 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import './index.css';
 
-
-export let rerenderEntireTree = () => {
-    ReactDOM.render(
-            <Provider store={store}>
-                 <React.StrictMode>
-                     <App />
-                </React.StrictMode>
-            </Provider>,
-        document.getElementById('root')
-    );
-};
-
-rerenderEntireTree();
-store.subscribe(rerenderEntireTree)
+ReactDOM.render(
+    <Provider store={store}>
+        <React.StrictMode>
+            <App />
+        </React.StrictMode>
+    </Provider>,
+    document.getElementById('root')
+);
+// rerenderEntireTree и store.subscribe(rerenderEntireTree) - we dont need this subscribe anymore, потому что теперь за нас это делает connect, он под капотом сам субскрайбиться
 
 reportWebVitals();

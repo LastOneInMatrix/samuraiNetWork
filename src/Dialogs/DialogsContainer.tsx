@@ -18,7 +18,7 @@ type mapDispatchToPropsTypes = {
     onChangeTextHandler: (text: string) => void;
     addMessage: () => void;
 };
-//todo узнать как типизировать dispatch
+//todo узнать как типизировать dispatch -
 
 const mapStateToProps = (state: AppStateType):mapStateToPropsTypes => {
     return {

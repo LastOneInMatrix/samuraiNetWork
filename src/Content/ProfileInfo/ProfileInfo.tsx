@@ -2,6 +2,7 @@ import React, {ChangeEvent} from 'react';
 import style from './ProfileInfo.module.css';
 import {Post} from "../Posts/Post";
 import {arrayPostsTypes} from "../../State/profileReducer";
+import {mapDispatchToPropsType, mapStateToPropsType} from "./ProfileInfoContainer";
 
 
 
@@ -9,11 +10,7 @@ type ProfileInfoPropsType = {
     img: string;
     title: string;
     placeholder: string;
-    posts: arrayPostsTypes;
-    newPostText: string;
-    updateNewPostText: (text: string) => void;
-    addPost: () => void;
-}
+}  & mapStateToPropsType & mapDispatchToPropsType;
 export const ProfileInfo: React.FC<ProfileInfoPropsType> = (props) => {
 
     const onAddPost = () => {

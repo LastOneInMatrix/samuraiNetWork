@@ -16,9 +16,8 @@ let rootReducers = combineReducers({
     dialogPage: dialogReducer,
     sidebar: sidebarReducer
 });
-
 export type AppStateType = ReturnType<typeof rootReducers> //тип стейта ----
-export type AppStoreType = typeof store // тип стор
+
 
 // rootReducer - это функция, которая возвращает state всего приложения.
 // И чтобы вернуть то, что возвращает функция воспользуем ReturnType
@@ -26,3 +25,12 @@ export type AppStoreType = typeof store // тип стор
 // Оператор ReturnType анализирует тип переданный в нее функции (rootReducer) и берет ее возвращаемый тип
 
 export let store = createStore(rootReducers); //todo узнать как типизировать store
+export type AppStoreType = typeof store // тип стор - должен стоять после создания createStore(rootReducers)
+
+
+declare global {
+    interface Window {
+        store:any;
+    }
+}
+window.store = store;

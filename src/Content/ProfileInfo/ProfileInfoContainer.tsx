@@ -11,11 +11,11 @@ type ProfileInfoPropsType = {
     title: string;
     placeholder: string;
 }
-type mapStateToPropsType = {
+export type mapStateToPropsType = {
     posts: arrayPostsTypes,
     newPostText: string
 };
-type mapDispatchToPropsType = {
+export type mapDispatchToPropsType = {
     addPost: () => void;
     updateNewPostText: (text: string) => void
 };
@@ -38,4 +38,4 @@ const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
         },
     }
 }
-export const ProfileInfoContainer: React.FC<ProfileInfoPropsType> = connect(mapStateToProps, mapDispatchToProps)(ProfileInfo);
+export const ProfileInfoContainer: React.FC<ProfileInfoPropsType> = connect(mapStateToProps, mapDispatchToProps)((props: any) =>  <ProfileInfo title={'as'} {...props} />);

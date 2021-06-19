@@ -57,11 +57,11 @@ export const dialogReducer = (state:dialogPageType = initialState, action:Action
             let newMessage: MessagePropsType = {
                 id: v1(), message: '-' + state.newMessageText // a здесь мы юзаем text из actionCreator
             }
-            return {
+            let a =  {
                 ...state,
-                messagesData: [...state.messagesData, newMessage],
-                newMessageText: ''
             }
+            a.messagesData.push(newMessage) //todo как это работает?  мы не делаем так дабы ссылки на объекты не накапливались, и тем самым сокращаем затраченную память
+            return a;
         default:
             return state;
     }
