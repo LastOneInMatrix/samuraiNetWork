@@ -3,9 +3,16 @@ import {v1} from "uuid";
 import {ActionsType} from "./redux-store";
 import {DialogItemPropsType} from "../Dialogs/Dialog/Dialog";
 
-
-export type arrayMessages = Array<MessagePropsType>
-export type arrayDialog = Array<DialogItemPropsType>
+type DialogItemType = {
+    id: number;
+    name: string;
+}
+type MessageType = {
+    id: string;
+    message: string;
+}
+export type arrayMessages = Array<MessageType>
+export type arrayDialog = Array<DialogItemType>
 
 export type dialogPageType = {
     dialogsData: arrayDialog;

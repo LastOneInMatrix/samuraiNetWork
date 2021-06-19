@@ -1,8 +1,9 @@
 import React from 'react';
-import {addPostActionCreator, changeTextActionCreator} from "../../State/profileReducer";
+import {addPostActionCreator, arrayPostsTypes, changeTextActionCreator} from "../../State/profileReducer";
 import {ProfileInfo} from "./ProfileInfo";
 import {connect} from "react-redux";
 import {AppStateType} from "../../State/redux-store";
+import {Dispatch} from "redux";
 
 
 type ProfileInfoPropsType = {
@@ -10,23 +11,31 @@ type ProfileInfoPropsType = {
     title: string;
     placeholder: string;
 }
+type mapStateToPropsType = {
+    posts: arrayPostsTypes,
+    newPostText: string
+};
+type mapDispatchToPropsType = {
+    addPost: () => void;
+    updateNewPostText: (text: string) => void
+};
 
-const mapStateToProps = (state: AppStateType) => {
+const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
     return {
         posts: state.profilePage.posts,
         newPostText: state.profilePage.newPostText
     }
 }
 
-const mapDispatchToProps = (dispatch: any) => {
+const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
     return {
         addPost: () => {
-            dispatch(addPostActionCreator());
+            dispatch(addPostActionCreator()); //todo how to add generic type for Dispatch
         },
         updateNewPostText: (text: string) => {
             let action = changeTextActionCreator(text);
             dispatch(action);
-        }
+        },
     }
 }
 export const ProfileInfoContainer: React.FC<ProfileInfoPropsType> = connect(mapStateToProps, mapDispatchToProps)(ProfileInfo);

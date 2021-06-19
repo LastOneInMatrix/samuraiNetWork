@@ -22,7 +22,7 @@ function App({...props}:AppPropsType) {
         <Navigation />
         <div className={style.AppWrapper}>
             <Route exact path={'/'}><Redirect to='/Profile' /></Route>
-            <Route  path='/Dialogs' render={ () => <DialogsContainer page={2} /> }/>
+            <Route  path='/Dialogs' render={ () => <DialogsContainer page={1}  isActive={false}/> }/>
             <Route  path='/Profile' render={ () => <Content /> }/>
         </div>
         <Footer />
