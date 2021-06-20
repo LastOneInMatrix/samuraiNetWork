@@ -1,7 +1,6 @@
 import React, {ChangeEvent} from 'react';
 import style from './ProfileInfo.module.css';
 import {Post} from "../Posts/Post";
-import {arrayPostsTypes} from "../../State/profileReducer";
 import {mapDispatchToPropsType, mapStateToPropsType} from "./ProfileInfoContainer";
 
 

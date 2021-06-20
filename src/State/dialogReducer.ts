@@ -48,7 +48,8 @@ export const dialogReducer = (state:InitialStateType = initialState, action:Acti
             };
             return {
                 ...state,
-                messagesData: [...state.messagesData, newMessage]
+                messagesData: [...state.messagesData, newMessage],
+                newMessageText: '',
             };
         default:
             return state;

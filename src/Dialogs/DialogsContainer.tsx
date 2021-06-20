@@ -1,5 +1,6 @@
 import React from 'react';
 import {connect} from "react-redux";
+import {Dispatch} from "redux";
 import {
     addMessagesActionCreator,
     changeMessageTextActionCreator,
@@ -7,7 +8,7 @@ import {
 } from '../State/dialogReducer'
 import {Dialogs} from "./Dialogs";
 import {AppStateType} from "../State/redux-store";
-import {Dispatch} from "redux";
+
 
 type DialogsPropsTypes = {
     page: number;

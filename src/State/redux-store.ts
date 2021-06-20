@@ -2,20 +2,25 @@ import {combineReducers, createStore} from "redux";
 import {addMessagesActionCreator, changeMessageTextActionCreator, dialogReducer} from "./dialogReducer";
 import {addPostActionCreator, changeTextActionCreator, profileReducer} from "./profileReducer";
 import {showSidebarActionCreator, sidebarReducer} from "./sidebarReducer";
+import {followAC, setUsersAC, unFollowAC, usersReducer} from "./userReducer";
 
 export type ActionsType =
     ReturnType<typeof changeMessageTextActionCreator> |  //returnType - берет у типа функции и отсекает только возвращаемую часть
     ReturnType<typeof addMessagesActionCreator> |
     ReturnType<typeof addPostActionCreator> |
     ReturnType<typeof changeTextActionCreator> |
-    ReturnType<typeof showSidebarActionCreator>;  // typeof - берет полностью функцию и создает для нее конретный тип
+    ReturnType<typeof showSidebarActionCreator> |
+    ReturnType<typeof followAC>|
+    ReturnType<typeof unFollowAC>|
+    ReturnType<typeof setUsersAC>;  // typeof - берет полностью функцию и создает для нее конретный тип
 
 let rootReducers = combineReducers({
     profilePage: profileReducer,
     dialogPage: dialogReducer,
-    sidebar: sidebarReducer
+    sidebar: sidebarReducer,
+    usersReducer: usersReducer
 });
-export type AppStateType = ReturnType<typeof rootReducers> //тип стейта ----
+export type AppStateType = ReturnType<typeof rootReducers> //тип стейта
 
 
 // rootReducer - это функция, которая возвращает state всего приложения.
@@ -32,4 +37,6 @@ declare global {
         store:any;
     }
 }
+
+// @ts-ignore
 window.store = store;
