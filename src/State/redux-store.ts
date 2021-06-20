@@ -2,7 +2,6 @@ import {combineReducers, createStore} from "redux";
 import {addMessagesActionCreator, changeMessageTextActionCreator, dialogReducer} from "./dialogReducer";
 import {addPostActionCreator, changeTextActionCreator, profileReducer} from "./profileReducer";
 import {showSidebarActionCreator, sidebarReducer} from "./sidebarReducer";
-import {rootStateType} from "./MyReduxStore";
 
 export type ActionsType =
     ReturnType<typeof changeMessageTextActionCreator> |  //returnType - берет у типа функции и отсекает только возвращаемую часть

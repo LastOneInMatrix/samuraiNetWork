@@ -2,22 +2,20 @@ import React, {ChangeEvent} from 'react';
 import {DialogItem} from './Dialog/Dialog';
 import {Message} from './Message/Message'
 import styles from './Dialogs.module.css';
-import {dialogPageType} from "../State/dialogReducer";
+import {DialogsConnectedPropsType} from "./DialogsContainer";
+import {InitialStateType} from "../State/dialogReducer";
 
 
 type DialogsPropsTypes = {
     page: number;
     isActive?: boolean;
-    dialogPage: dialogPageType;
-    onChangeTextHandler: (text: string) => void;
-    addMessage: ()=>void;
 }
 
 
-export const Dialogs: React.FC<DialogsPropsTypes> = ({dialogPage, ...props}) => {
+export const Dialogs: React.FC<DialogsPropsTypes & DialogsConnectedPropsType>  = ({dialogPage, ...props}) => {
 //BLL
     let {page = 1, isActive = false} = props;
-    let state = dialogPage;
+    let state: InitialStateType = dialogPage;
 
     const onChangeTextHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
         props.onChangeTextHandler(e.currentTarget.value)
@@ -26,12 +24,12 @@ export const Dialogs: React.FC<DialogsPropsTypes> = ({dialogPage, ...props}) => 
         props.addMessage()
     };
 //UI
-    const dialogsDataJsx: Array<JSX.Element> = state.dialogsData.map((e) => {
-        return e.id == 1 ? <DialogItem name={e.name} id={e.id} isActive={true}/> :
-            <DialogItem name={e.name} id={e.id} isActive={isActive}/>
+    const dialogsDataJsx: Array<JSX.Element> = state.dialogsData.map((e, i) => {
+        return e.id == 1 ? <DialogItem key={i} name={e.name} id={e.id} isActive={true}/> :
+            <DialogItem key={i} name={e.name} id={e.id} isActive={isActive}/>
     });
     const messagesDataJsx: Array<JSX.Element> = state.messagesData.map((e) => {
-        return <Message message={e.message} id={e.id}/>
+        return <Message  key={e.id} message={e.message} id={e.id}/>
     });
 
     return (

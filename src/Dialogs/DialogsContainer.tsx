@@ -1,6 +1,10 @@
 import React from 'react';
 import {connect} from "react-redux";
-import {addMessagesActionCreator, changeMessageTextActionCreator, dialogPageType} from '../State/dialogReducer'
+import {
+    addMessagesActionCreator,
+    changeMessageTextActionCreator,
+    InitialStateType
+} from '../State/dialogReducer'
 import {Dialogs} from "./Dialogs";
 import {AppStateType} from "../State/redux-store";
 import {Dispatch} from "redux";
@@ -10,17 +14,20 @@ type DialogsPropsTypes = {
     isActive?: boolean;
 };
 
+//свойства прописанный в mapStateToPropsTypes и mapDispatchToPropsTypes становятся приконекченными пропсами оборачеваемой компоненты Dialogs
 type mapStateToPropsTypes = {
-    dialogPage: dialogPageType;
+    dialogPage: InitialStateType;
 };
 
 type mapDispatchToPropsTypes = {
     onChangeTextHandler: (text: string) => void;
     addMessage: () => void;
 };
-//todo узнать как типизировать dispatch -
 
-const mapStateToProps = (state: AppStateType):mapStateToPropsTypes => {
+export type DialogsConnectedPropsType = mapStateToPropsTypes & mapDispatchToPropsTypes;
+
+
+const mapStateToProps = (state: AppStateType): mapStateToPropsTypes => {
     return {
         dialogPage: state.dialogPage,
     }

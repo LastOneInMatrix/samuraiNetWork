@@ -30,7 +30,7 @@ const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
 const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
     return {
         addPost: () => {
-            dispatch(addPostActionCreator()); //todo how to add generic type for Dispatch
+            dispatch(addPostActionCreator()); //дополнительная типизация экшенов посредством дженериков избыточна
         },
         updateNewPostText: (text: string) => {
             let action = changeTextActionCreator(text);
