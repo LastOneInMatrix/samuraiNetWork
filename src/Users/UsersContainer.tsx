@@ -14,8 +14,8 @@ export type mapStateToPropsType = {
 }
 
 export  type mapDispatchToPropsType = {
-    followHandler: (userId: string) => void;
-    unFollowHandler: (userId: string) => void;
+    followHandler: (userId: number) => void;
+    unFollowHandler: (userId: number) => void;
     setUsersHandler: (users: usersType) => void;
 } //todo как не путаться в импортах при склеивании конекченных типов?
 
@@ -25,8 +25,8 @@ const mapStateToProps = (state: AppStateType): mapStateToPropsType => ({users: s
 
 const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
     return {
-        followHandler: (userId: string) => dispatch(followAC(userId)),
-        unFollowHandler: (userId: string) => dispatch(unFollowAC(userId)),
+        followHandler: (userId: number) => dispatch(followAC(userId)),
+        unFollowHandler: (userId: number) => dispatch(unFollowAC(userId)),
         setUsersHandler: (users: usersType) => dispatch(setUsersAC(users)),
     }
 };

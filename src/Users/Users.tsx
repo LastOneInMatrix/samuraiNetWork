@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import styles from './Users.module.css';
-import {v1} from "uuid";
 import {mapDispatchToPropsType, mapStateToPropsType} from "./UsersContainer";
+import axios from "axios";
 
 export type UsersConnectedPropsType = mapStateToPropsType & mapDispatchToPropsType;
 
@@ -9,40 +9,22 @@ export type UsersConnectedPropsType = mapStateToPropsType & mapDispatchToPropsTy
 export const Users: React.FC<UsersConnectedPropsType> = ({users, ...props}) => {
 
     useEffect( ()=> {
-        props.setUsersHandler([
-            {
-                img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWcZZI0XWEhje7C8EavUlI8hAaJ2G6mXJhg1xedyWM0-f2-p9Pz9mkmN_1uKO4Stkotn4&usqp=CAU',
-                follower: true,
-                id: v1(),
-                fullName: 'As',
-                status: 'lalaland...',
-                location: {
-                    country: 'Russia',
-                    city: 'Moscow'
-                }                         // todo а как же при новых пришедших с сервака?
-            } ,
-            {
-                img: 'https://goo.su/img/chrome.png',
-                follower: false,
-                id: v1(),
-                fullName: 'Asa',
-                status: 'My status.',
-                location: {
-                    country: 'Finland',
-                    city: 'Helsinki'
-                }
-            }
+        axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
+            props.setUsersHandler([
+                ...response.data.items
             ])
+        })
+
     }, [] )
 
     return <div>
         {
             users.map(user => {
                 return <div key={user.id}>
-                    <h3>{user.fullName}</h3>
-                    <img className={styles.messages} src={user.img} alt={'Just avatar'}/>
+                    <h3>{user.name}</h3>
+                    <img className={styles.messages} src={user.photos.small === undefined && user.photos.small === null? user.photos.small : 'https://www.w3schools.com/w3css/img_avatar3.png'} alt={'Just avatar'}/>
                     <em>{user.status}</em>
-                    {user.follower ?
+                    {user.followed ?
                         <button onClick={() => {
                             props.unFollowHandler(user.id)
                         }}>Follow</button>

@@ -4,17 +4,19 @@ const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET_USERS';
 
-export type locationType = {
-    country: string;
-    city: string;
-}
+// export type locationType = {
+//     country: string;
+//     city: string;
+// }
 export type userType = {
-    img: string;
-    follower: boolean;
-    id: string;
-    fullName: string;
-    status: string;
-    location: locationType;
+    photos: {
+        small: string | null;
+        large: string | null
+    };
+    followed: boolean;
+    id: number;
+    name: string;
+    status: string | null;
 }
 export type usersType = Array<userType>
 
@@ -30,14 +32,17 @@ export const usersReducer = (state: initialStateType = initialState, action: Act
         case "FOLLOW": {
             return {
                 ...state,
-                users: state.users.map(user => action.userId === user.id ? {...user, follower: true} : user)
+                users: state.users.map(user => {
+                    console.log(action.userId === user.id);
+                   return  action.userId === user.id ? {...user, followed: true} : user     // потому что если написать   follower то ошибки не будет?
+                })
             }
         }
 
         case 'UNFOLLOW': {
             return {
                 ...state,
-                users: state.users.map(user => action.userId === user.id ? {...user, follower: false} : user)
+                users: state.users.map(user => action.userId === user.id ? {...user, followed: false} : user)
             }
         }
 
@@ -54,8 +59,8 @@ export const usersReducer = (state: initialStateType = initialState, action: Act
             return state;
     }
 }
-export const followAC = (userId: string) => ({type: FOLLOW, userId} as const);
-export const unFollowAC = (userId: string) => ({type: UNFOLLOW, userId} as const);
+export const followAC = (userId: number) => ({type: FOLLOW, userId} as const);
+export const unFollowAC = (userId: number) => ({type: UNFOLLOW, userId} as const);
 export const setUsersAC = (users: usersType) => ({type: SET_USERS, users} as const);
 
 
