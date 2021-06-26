@@ -3,16 +3,14 @@ import {Dispatch} from "redux";
 import {connect} from "react-redux";
 import {AppStateType} from "../State/redux-store";
 import {followAC, setUsersAC, unFollowAC, usersType} from "../State/userReducer";
-import {Users, UsersConnectedPropsType} from "./Users";
-import {Dialogs} from "../Dialogs/Dialogs";
+import {Users} from "./Users";
 
 
-
-export type UsersPropsTypes =  {
-  forTest: string
+export type UsersPropsTypes = {
+    forTest: string
 }
 export type mapStateToPropsType = {
-    users:usersType
+    users: usersType
 }
 
 export  type mapDispatchToPropsType = {
@@ -33,4 +31,4 @@ const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
     }
 };
 
-export const  UsersContainer: React.FC<{}> = connect(mapStateToProps, mapDispatchToProps)(Users)
+export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(Users)

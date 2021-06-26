@@ -99,7 +99,6 @@ export const store: storeType = {
         this._subscriber();
     },
 
-    //TODO добавить dispatch dispatch(){}
     dispatch(action) {
         this._state.dialogPage = dialogReducer(this._state.dialogPage, action);
         this._state.profilePage = profileReducer(this._state.profilePage, action);

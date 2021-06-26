@@ -1,4 +1,3 @@
-import {v1} from "uuid";
 import {ActionsType} from "./redux-store";
 
 const FOLLOW = 'FOLLOW';
@@ -20,8 +19,10 @@ export type userType = {
 export type usersType = Array<userType>
 
 const initialState = {
-    users: [] as usersType  // todo узнать как правильно типизировать для инитиал стейта
+    users: [] as Array<userType>  // todo узнать как правильно типизировать для инитиал стейта
 }
+
+
 export type initialStateType = typeof initialState;
 
 export const usersReducer = (state: initialStateType = initialState, action: ActionsType): initialStateType => {
@@ -31,19 +32,24 @@ export const usersReducer = (state: initialStateType = initialState, action: Act
                 ...state,
                 users: state.users.map(user => action.userId === user.id ? {...user, follower: true} : user)
             }
-        };
+        }
+
         case 'UNFOLLOW': {
             return {
                 ...state,
-                users: state.users.map(user => action.userId === user.id ? {...user, follower:false} : user)
+                users: state.users.map(user => action.userId === user.id ? {...user, follower: false} : user)
             }
-        };
+        }
+
         case 'SET_USERS': {
-            return {
+            let a = {
                 ...state,
-                users: [...action.users, ...state.users] // todo если изночальный тоже раскидывать то дважды почему?
+                users: [...state.users, ...action.users] // todo если изночальный тоже раскидывать то дважды почему?
             }
-        };
+            debugger
+            return a
+        }
+
         default:
             return state;
     }

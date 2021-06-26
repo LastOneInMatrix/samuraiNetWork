@@ -40,4 +40,4 @@ const mapStateToDispatch = (dispatch: Dispatch): mapDispatchToPropsTypes => {   
         addMessage: () => {dispatch(addMessagesActionCreator())},
     }
 };
-export const  DialogsContainer: React.FC<DialogsPropsTypes> = connect(mapStateToProps, mapStateToDispatch)(Dialogs) // todo how to add props
+export const  DialogsContainer: React.FC<DialogsPropsTypes> = connect(mapStateToProps, mapStateToDispatch)(Dialogs)
