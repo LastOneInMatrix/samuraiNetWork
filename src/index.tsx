@@ -5,12 +5,14 @@ import {store} from './State/redux-store';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import './index.css';
+import {BrowserRouter} from "react-router-dom";
 
 ReactDOM.render(
     <Provider store={store}>
-        <React.StrictMode>
-            <App />
-        </React.StrictMode>
+        <BrowserRouter>
+            // из-за стрикт мода constructor классовых компонент будет вызываться дважды
+            <App/>
+        </BrowserRouter>
     </Provider>,
     document.getElementById('root')
 );

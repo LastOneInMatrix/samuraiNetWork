@@ -6,24 +6,25 @@ import {followAC, setUsersAC, unFollowAC, usersType} from "../State/userReducer"
 import {Users} from "./Users";
 
 
+
 export type UsersPropsTypes = {
     forTest: string
 }
-export type mapStateToPropsType = {
+export type MapStateToPropsType = {
     users: usersType
 }
-
-export  type mapDispatchToPropsType = {
+export type UsersConnectedPropsType = MapStateToPropsType & MapDispatchToPropsType;
+export  type MapDispatchToPropsType = {
     followHandler: (userId: number) => void;
     unFollowHandler: (userId: number) => void;
     setUsersHandler: (users: usersType) => void;
 } //todo как не путаться в импортах при склеивании конекченных типов?
 
 
-const mapStateToProps = (state: AppStateType): mapStateToPropsType => ({users: state.usersReducer.users});
+const mapStateToProps = (state: AppStateType): MapStateToPropsType => ({users: state.usersReducer.users});
 
 
-const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
+const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
     return {
         followHandler: (userId: number) => dispatch(followAC(userId)),
         unFollowHandler: (userId: number) => dispatch(unFollowAC(userId)),
@@ -31,4 +32,4 @@ const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
     }
 };
 
-export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(Users)
+export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(React.memo(Users))

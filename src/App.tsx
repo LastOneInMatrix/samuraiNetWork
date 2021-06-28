@@ -1,7 +1,6 @@
  import React from 'react';
 import {
     Route,
-    BrowserRouter,
     Redirect
 } from "react-router-dom";
 import {Content} from "./Content/Content";
@@ -18,8 +17,7 @@ type AppPropsType = {
 }
 function App({...props}:AppPropsType) {
   return (
-      <BrowserRouter >
-    <div className={style.App}>
+      <div className={style.App}>
         <Header />
         <Navigation />
         <div className={style.AppWrapper}>
@@ -30,9 +28,8 @@ function App({...props}:AppPropsType) {
         </div>
         <Footer />
     </div>
-      </BrowserRouter >
   );
 }
 
-export default App;
+export default React.memo(App);
  //todo узнать зачем в пропсах key
