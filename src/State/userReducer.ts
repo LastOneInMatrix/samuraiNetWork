@@ -33,7 +33,6 @@ export const usersReducer = (state: initialStateType = initialState, action: Act
             return {
                 ...state,
                 users: state.users.map(user => {
-                    console.log(action.userId === user.id);
                    return  action.userId === user.id ? {...user, followed: true} : user     // todo потому что если написать   follower то ошибки не будет?
                 })
             }
@@ -47,9 +46,14 @@ export const usersReducer = (state: initialStateType = initialState, action: Act
         }
 
         case 'SET_USERS': {
-            return {
-                ...state,
-                users: [...state.users, ...action.users] // todo если изночальный тоже раскидывать то дважды почему?
+            if (JSON.stringify(state.users) === JSON.stringify(action.users)) {
+                return state;
+            } else {
+                return {
+                    ...state,
+
+                    users: [...state.users,...action.users] // todo если изночальный тоже раскидывать то дважды почему?
+                }
             }
         }
         default:
