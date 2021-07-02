@@ -3,6 +3,8 @@ import {ActionsType} from "./redux-store";
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET_USERS';
+const SET_USER_PAGES = 'SET_USER_PAGES';
+const GET_TOTAL_COUNT = 'GET_TOTAL_COUNT';
 
 // export type locationType = {
 //     country: string;
@@ -21,7 +23,10 @@ export type userType = {
 export type usersType = Array<userType>
 
 const initialState = {
-    users: [] as Array<userType>  // todo узнать как правильно типизировать для инитиал стейта
+    users: [] as Array<userType>, // todo узнать как правильно типизировать для инитиал стейта
+    totalSize: 0,
+    pageSize: 5,
+    currentPage: 1,
 }
 
 
@@ -46,16 +51,19 @@ export const usersReducer = (state: initialStateType = initialState, action: Act
         }
 
         case 'SET_USERS': {
-            if (JSON.stringify(state.users) === JSON.stringify(action.users)) {
-                return state;
-            } else {
-                return {
+            return {
                     ...state,
-
-                    users: [...state.users,...action.users] // todo если изночальный тоже раскидывать то дважды почему?
+                    users: [...action.users] // todo если изночальный тоже раскидывать то дважды почему?
                 }
-            }
         }
+
+        case "SET_USER_PAGES": {
+            return {...state, currentPage: action.page}
+        }
+        case "GET_TOTAL_COUNT": {
+            return {...state, totalSize: action.totalSize}
+        }
+
         default:
             return state;
     }
@@ -63,5 +71,6 @@ export const usersReducer = (state: initialStateType = initialState, action: Act
 export const followAC = (userId: number) => ({type: FOLLOW, userId} as const);
 export const unFollowAC = (userId: number) => ({type: UNFOLLOW, userId} as const);
 export const setUsersAC = (users: usersType) => ({type: SET_USERS, users} as const);
-
+export const setUsersPageAC = (page: number) => ({type: SET_USER_PAGES, page} as const);
+export const getTotalCountAC = (totalSize: number) => ({type: GET_TOTAL_COUNT, totalSize} as const);
 

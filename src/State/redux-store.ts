@@ -2,7 +2,7 @@ import {combineReducers, createStore} from "redux";
 import {addMessagesActionCreator, changeMessageTextActionCreator, dialogReducer} from "./dialogReducer";
 import {addPostActionCreator, changeTextActionCreator, profileReducer} from "./profileReducer";
 import {showSidebarActionCreator, sidebarReducer} from "./sidebarReducer";
-import {followAC, setUsersAC, unFollowAC, usersReducer} from "./userReducer";
+import {followAC, getTotalCountAC, setUsersAC, setUsersPageAC, unFollowAC, usersReducer} from "./userReducer";
 
 export type ActionsType =
     ReturnType<typeof changeMessageTextActionCreator> |  //returnType - берет у типа функции и отсекает только возвращаемую часть
@@ -12,7 +12,9 @@ export type ActionsType =
     ReturnType<typeof showSidebarActionCreator> |
     ReturnType<typeof followAC>|
     ReturnType<typeof unFollowAC>|
-    ReturnType<typeof setUsersAC>;  // typeof - берет полностью функцию и создает для нее конретный тип
+    ReturnType<typeof setUsersAC>|
+    ReturnType<typeof setUsersPageAC>|
+    ReturnType<typeof getTotalCountAC>;  // typeof - берет полностью функцию и создает для нее конретный тип
 
 let rootReducers = combineReducers({
     profilePage: profileReducer,

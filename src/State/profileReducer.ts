@@ -30,7 +30,7 @@ let initialState:profilePageType =  {
             avatar: 'https://banner2.cleanpng.com/20181231/fta/kisspng-computer-icons-user-profile-portable-network-graph-circle-svg-png-icon-free-download-5-4714-onli-5c2a3809d6e8e6.1821006915462707298803.jpg'
         },
         {
-            id: '2',
+            id: '3',
             text: 'hi there',
             likes: 5,
             avatar: 'https://www.pngitem.com/pimgs/m/420-4204652_oic-provincial-statistics-officer-psa-maguindanao-user-icon.png'

@@ -7,22 +7,41 @@ type MyState = {
     count: number; // like this
 };
 
+
+const axiosInstance = axios.create({baseURL: 'https://social-network.samuraijs.com/api/1.0/', withCredentials: true});
+
 export class Users extends React.Component<UsersConnectedPropsType, MyState> {
     constructor(props: UsersConnectedPropsType) {
         super(props);
     }
 
+
     componentDidMount() {
-        axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
+        axiosInstance.get(`users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
             this.props.setUsersHandler([...response.data.items]);
+            this.props.getTotalCount(response.data.totalCount);
         }); // компонент был вмантирован в DOM
     }
-    componentDidUpdate(prevProps: Readonly<UsersConnectedPropsType>, prevState: Readonly<MyState>, snapshot?: any) {
-        console.log('компонент обновлен');
+    setUserPage(page: number) {
+        this.props.setUsersPage(page);
+        axiosInstance.get(`users?page=${page}&count=${this.props.pageSize}`).then(response => {
+            this.props.setUsersHandler(response.data.items);
+        });
     }
 
-    render(){
+    render()
+
+    {
+        const pagesCount = Math.ceil(this.props.totalSize/this.props.pageSize);
+        let pages = [];
+            for (let i =1; i<= pagesCount; i++) {
+                pages.push(i);
+            }
+
         return <div>
+            <div style={{margin: '10px'}}>
+                {pages.map((e,i) => <span key={i} style={{border: '1px solid black', margin: '2px'}} onClick={(event) => {this.setUserPage(e)}} className={this.props.currentPage === e ?  styles.selectedPage : ''}>...{e}</span>)}
+            </div>
             {
                 this.props.users.map(user => {
                     return <div key={user.id}>

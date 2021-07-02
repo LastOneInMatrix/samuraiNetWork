@@ -20,7 +20,7 @@ export const ProfileInfo: React.FC<ProfileInfoPropsType> = (props) => {
     const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
          props.updateNewPostText(e.currentTarget.value);
     };
-    const postsJSX: Array<JSX.Element> = props.posts.map(post => < Post id={post.id} text={post.text}  likes={post.likes} avatar={post.avatar}/>)
+    const postsJSX: Array<JSX.Element> = props.posts.map(post => < Post key={post.id} id={post.id} text={post.text}  likes={post.likes} avatar={post.avatar}/>)
     return <div className={style.main}>
         <h3 className={style.title}>{props.title}</h3>
         <img src={props.img} alt={'textPicture'}/>
