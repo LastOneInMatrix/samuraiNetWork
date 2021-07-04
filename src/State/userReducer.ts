@@ -5,11 +5,9 @@ const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET_USERS';
 const SET_USER_PAGES = 'SET_USER_PAGES';
 const GET_TOTAL_COUNT = 'GET_TOTAL_COUNT';
+const SET_FETCHING = 'SET_FETCHING'
 
-// export type locationType = {
-//     country: string;
-//     city: string;
-// }
+
 export type userType = {
     photos: {
         small: string | null;
@@ -27,6 +25,7 @@ const initialState = {
     totalSize: 0,
     pageSize: 20,
     currentPage: 1,
+    isFetching: false,
 }
 
 
@@ -63,6 +62,9 @@ export const usersReducer = (state: initialStateType = initialState, action: Act
         case "GET_TOTAL_COUNT": {
             return {...state, totalSize: action.totalSize}
         }
+        case "SET_FETCHING": {
+            return {...state, isFetching: action.isFetching}
+        }
 
         default:
             return state;
@@ -73,4 +75,4 @@ export const unFollowAC = (userId: number) => ({type: UNFOLLOW, userId} as const
 export const setUsersAC = (users: usersType) => ({type: SET_USERS, users} as const);
 export const setUsersPageAC = (page: number) => ({type: SET_USER_PAGES, page} as const);
 export const getTotalCountAC = (totalSize: number) => ({type: GET_TOTAL_COUNT, totalSize} as const);
-
+export const setFetchingAC = (isFetching: boolean) => ({type:SET_FETCHING, isFetching} as const);
