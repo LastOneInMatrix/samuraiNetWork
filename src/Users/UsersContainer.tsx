@@ -1,19 +1,17 @@
 import React from 'react';
-import {Dispatch} from "redux";
 import {connect} from "react-redux";
 import axios from "axios";
 import {AppStateType} from "../State/redux-store";
 import {
-    followAC,
-    getTotalCountAC,
-    setFetchingAC,
-    setUsersAC,
-    setUsersPageAC,
-    unFollowAC,
+    followHandler,
+    getTotalCount,
+    setFetching,
+    setUsersHandler,
+    setUsersPage,
+    unFollowHandler,
     usersType
 } from "../State/userReducer";
 import {UserHelper} from "./User";
-import logo from '../assets/loader.svg'
 import {Preloader} from "../Common/Preloader/Preloader";
 
 export type UsersPropsTypes = {
@@ -94,15 +92,24 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
 };
 
 
-const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
-    return {
-        followHandler: (userId: number) => dispatch(followAC(userId)),
-        unFollowHandler: (userId: number) => dispatch(unFollowAC(userId)),
-        setUsersHandler: (users: usersType) => dispatch(setUsersAC(users)),
-        getTotalCount: (totalSize: number) => dispatch(getTotalCountAC(totalSize)),
-        setUsersPage: (page: number) => dispatch(setUsersPageAC(page)),
-        setFetching: (isFetching: boolean) => dispatch(setFetchingAC(isFetching))
-    }
-};
+// const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
+//     return {
+//         followHandler: (userId: number) => dispatch(followAC(userId)),
+//         unFollowHandler: (userId: number) => dispatch(unFollowAC(userId)),
+//         setUsersHandler: (users: usersType) => dispatch(setUsersAC(users)),
+//         getTotalCount: (totalSize: number) => dispatch(getTotalCountAC(totalSize)),
+//         setUsersPage: (page: number) => dispatch(setUsersPageAC(page)),
+//         setFetching: (isFetching: boolean) => dispatch(setFetchingAC(isFetching))
+//     }
+// };
 
-export const UsersConnectedContainer = connect(mapStateToProps, mapDispatchToProps)(UsersContainer)
+export const UsersConnectedContainer = connect(mapStateToProps,
+    ({followHandler,
+        unFollowHandler,
+        setUsersHandler,
+        getTotalCount,
+        setUsersPage,
+        setFetching
+    })
+)(UsersContainer) // в данном случае предпологается если в mapDispatchToProps передается не функция, а объект, то он автоматически будет создат функции и прокинет в них диспатч
+//Todo после рефакторинга mapDispatchToProps, приложение стало работать намного быстрее

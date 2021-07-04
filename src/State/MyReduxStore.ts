@@ -2,7 +2,7 @@ import {PostPropsType} from "../Content/Posts/Post";
 import {MessagePropsType} from "../Dialogs/Message/Message";
 import {DialogItemPropsType} from "../Dialogs/Dialog/Dialog";
 import {addMessagesActionCreator, changeMessageTextActionCreator, dialogReducer} from "./dialogReducer";
-import {addPostActionCreator, changeTextActionCreator, profileReducer} from "./profileReducer";
+import {profileReducer} from "./profileReducer";
 import {showSidebarActionCreator, sidebarReducer} from "./sidebarReducer";
 
 
@@ -29,8 +29,6 @@ export type rootStateType = {
 export type ActionsType =
     ReturnType<typeof changeMessageTextActionCreator> |  //returnType - берет у типа функции и отсекает только возвращаемую часть
     ReturnType<typeof addMessagesActionCreator> |
-    ReturnType<typeof addPostActionCreator> |
-    ReturnType<typeof changeTextActionCreator>|
     ReturnType<typeof showSidebarActionCreator>;  // typeof - берет полностью функцию и создает для нее конретный тип
 
 export type storeType = {

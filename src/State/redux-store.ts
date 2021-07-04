@@ -1,29 +1,33 @@
 import {combineReducers, createStore} from "redux";
 import {addMessagesActionCreator, changeMessageTextActionCreator, dialogReducer} from "./dialogReducer";
-import {addPostActionCreator, changeTextActionCreator, profileReducer} from "./profileReducer";
+import {
+    addPost,
+    updateNewPostText,
+    profileReducer
+} from "./profileReducer";
 import {showSidebarActionCreator, sidebarReducer} from "./sidebarReducer";
 import {
-    followAC,
-    getTotalCountAC,
-    setFetchingAC,
-    setUsersAC,
-    setUsersPageAC,
-    unFollowAC,
+    followHandler,
+    getTotalCount,
+    setFetching,
+    setUsersHandler,
+    setUsersPage,
+    unFollowHandler,
     usersReducer
 } from "./userReducer";
 
 export type ActionsType =
     ReturnType<typeof changeMessageTextActionCreator> |  //returnType - берет у типа функции и отсекает только возвращаемую часть
     ReturnType<typeof addMessagesActionCreator> |
-    ReturnType<typeof addPostActionCreator> |
-    ReturnType<typeof changeTextActionCreator> |
+    ReturnType<typeof addPost> |
+    ReturnType<typeof updateNewPostText> |
     ReturnType<typeof showSidebarActionCreator> |
-    ReturnType<typeof followAC>|
-    ReturnType<typeof unFollowAC>|
-    ReturnType<typeof setUsersAC>|
-    ReturnType<typeof setUsersPageAC>|
-    ReturnType<typeof getTotalCountAC>|
-    ReturnType<typeof setFetchingAC>;  // typeof - берет полностью функцию и создает для нее конретный тип
+    ReturnType<typeof followHandler>|
+    ReturnType<typeof unFollowHandler>|
+    ReturnType<typeof setUsersHandler>|
+    ReturnType<typeof setUsersPage>|
+    ReturnType<typeof getTotalCount>|
+    ReturnType<typeof setFetching>;  // typeof - берет полностью функцию и создает для нее конретный тип
 
 let rootReducers = combineReducers({
     profilePage: profileReducer,

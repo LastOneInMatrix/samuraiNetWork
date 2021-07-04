@@ -12,8 +12,8 @@ export type profilePageType = {
 const ADD_POST = 'ADD_POST';
 const CHANGE_TEXT = 'CHANGE_TEXT';
 
-export const addPostActionCreator = () => ({type: ADD_POST} as const);
-export const changeTextActionCreator = (newText: string) => (
+export const addPost = () => ({type: ADD_POST} as const);
+export const updateNewPostText = (newText: string) => (
     {
         type: CHANGE_TEXT, newPostText: newText
     } as const //todo узнать про as const

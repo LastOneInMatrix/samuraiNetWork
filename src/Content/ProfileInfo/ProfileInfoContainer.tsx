@@ -1,9 +1,13 @@
 import React from 'react';
-import {addPostActionCreator, arrayPostsTypes, changeTextActionCreator} from "../../State/profileReducer";
-import {ProfileInfo} from "./ProfileInfo";
 import {connect} from "react-redux";
+import {
+    addPost,
+    updateNewPostText,
+    arrayPostsTypes,
+} from "../../State/profileReducer";
+import {ProfileInfo} from "./ProfileInfo";
 import {AppStateType} from "../../State/redux-store";
-import {Dispatch} from "redux";
+
 
 
 type ProfileInfoPropsType = {
@@ -27,15 +31,4 @@ const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
     }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
-    return {
-        addPost: () => {
-            dispatch(addPostActionCreator()); //дополнительная типизация экшенов посредством дженериков избыточна
-        },
-        updateNewPostText: (text: string) => {
-            let action = changeTextActionCreator(text);
-            dispatch(action);
-        },
-    }
-}
-export const ProfileInfoContainer: React.FC<ProfileInfoPropsType> = connect(mapStateToProps, mapDispatchToProps)((props: any) =>  <ProfileInfo title={'as'} {...props} />);
+export const ProfileInfoContainer: React.FC<ProfileInfoPropsType> = connect(mapStateToProps, {addPost, updateNewPostText})((props: any) =>  <ProfileInfo title={'as'} {...props} />);

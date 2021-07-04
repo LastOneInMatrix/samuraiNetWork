@@ -70,9 +70,9 @@ export const usersReducer = (state: initialStateType = initialState, action: Act
             return state;
     }
 }
-export const followAC = (userId: number) => ({type: FOLLOW, userId} as const);
-export const unFollowAC = (userId: number) => ({type: UNFOLLOW, userId} as const);
-export const setUsersAC = (users: usersType) => ({type: SET_USERS, users} as const);
-export const setUsersPageAC = (page: number) => ({type: SET_USER_PAGES, page} as const);
-export const getTotalCountAC = (totalSize: number) => ({type: GET_TOTAL_COUNT, totalSize} as const);
-export const setFetchingAC = (isFetching: boolean) => ({type:SET_FETCHING, isFetching} as const);
+export const followHandler = (userId: number) => ({type: FOLLOW, userId} as const);
+export const unFollowHandler = (userId: number) => ({type: UNFOLLOW, userId} as const);
+export const setUsersHandler = (users: usersType) => ({type: SET_USERS, users} as const);
+export const setUsersPage = (page: number) => ({type: SET_USER_PAGES, page} as const);
+export const getTotalCount = (totalSize: number) => ({type: GET_TOTAL_COUNT, totalSize} as const);
+export const setFetching = (isFetching: boolean) => ({type:SET_FETCHING, isFetching} as const);
