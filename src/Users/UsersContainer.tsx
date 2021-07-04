@@ -3,7 +3,8 @@ import {Dispatch} from "redux";
 import {connect} from "react-redux";
 import {AppStateType} from "../State/redux-store";
 import {followAC, getTotalCountAC, setUsersAC, setUsersPageAC, unFollowAC, usersType} from "../State/userReducer";
-import {Users} from "./Users";
+import axios from "axios";
+import {UserHelper} from "./User";
 
 
 export type UsersPropsTypes = {
@@ -15,7 +16,7 @@ export type MapStateToPropsType = {
     pageSize: number;
     currentPage: number
 }
-export type UsersConnectedPropsType = MapStateToPropsType & MapDispatchToPropsType;
+export type UsersConnectedPropsType = MapStateToPropsType & MapDispatchToPropsType & UsersPropsTypes;
 export  type MapDispatchToPropsType = {
     followHandler: (userId: number) => void;
     unFollowHandler: (userId: number) => void;
@@ -23,7 +24,44 @@ export  type MapDispatchToPropsType = {
     getTotalCount: (totalSize: number) => void;
     setUsersPage: (page: number) => void;
 } //todo как не путаться в импортах при склеивании конекченных типов?
+type MyState = {
+    count: number; // like this
+};
 
+
+const axiosInstance = axios.create({baseURL: 'https://social-network.samuraijs.com/api/1.0/', withCredentials: true});
+
+class UsersContainer extends React.Component<UsersConnectedPropsType, MyState> {
+    constructor(props: UsersConnectedPropsType) {
+        super(props);
+    }
+
+    componentDidMount() {
+        axiosInstance.get(`users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
+            this.props.setUsersHandler([...response.data.items]);
+            this.props.getTotalCount(response.data.totalCount);
+        }); // компонент был вмантирован в DOM
+    }
+    setUserPage = (page: number)  => {
+        this.props.setUsersPage(page);
+        axiosInstance.get(`users?page=${page}&count=${this.props.pageSize}`).then(response => {
+            this.props.setUsersHandler(response.data.items);
+        });
+    }
+    render() {
+        return (
+            <UserHelper
+                users={this.props.users}
+                currentPage={this.props.currentPage}
+                totalSize={this.props.totalSize}
+                pageSize={this.props.pageSize}
+                followHandler={this.props.followHandler}
+                unFollowHandler={this.props.unFollowHandler}
+                setUserPage={this.setUserPage}
+            />
+        )
+    }
+}
 
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
@@ -45,4 +83,4 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
     }
 };
 
-export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(React.memo(Users))
+export const UsersConnectedContainer = connect(mapStateToProps, mapDispatchToProps)(UsersContainer)

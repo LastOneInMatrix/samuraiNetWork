@@ -25,7 +25,7 @@ export type usersType = Array<userType>
 const initialState = {
     users: [] as Array<userType>, // todo узнать как правильно типизировать для инитиал стейта
     totalSize: 0,
-    pageSize: 5,
+    pageSize: 20,
     currentPage: 1,
 }
 

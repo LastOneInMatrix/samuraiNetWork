@@ -7,7 +7,7 @@ import {Content} from "./Content/Content";
 import {Footer} from "./Footer/Footer";
 import {Navigation} from "./Nav/Navigation";
 import {Header} from "./Header/Header";
- import {UsersContainer} from "./Users/UsersContainer";
+ import {UsersConnectedContainer} from "./Users/UsersContainer";
 import {DialogsContainer} from "./Dialogs/DialogsContainer";
  import style from './App.module.css';
 
@@ -24,7 +24,7 @@ function App({...props}:AppPropsType) {
             <Route exact path={'/'}><Redirect to='/Profile' /></Route>
             <Route  path='/Dialogs' render={ () => <DialogsContainer page={1}  isActive={false}/> }/>
             <Route  path='/Profile' render={ () => <Content /> }/>
-            <Route  path={'/users'} render={ () => <UsersContainer />} />
+            <Route  path={'/users'} render={ () => <UsersConnectedContainer forTest={'ТЕСТ'}/>} />
         </div>
         <Footer />
     </div>
