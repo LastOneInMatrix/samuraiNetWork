@@ -7,17 +7,35 @@ export type arrayPostsTypes = Array<PostPropsType>;
 export type profilePageType = {
     posts: arrayPostsTypes;
     newPostText: string;
+    userProfileInfo: userProfileInfo | null;
 };
+export type userProfileInfo = {
+    aboutMe: string | null;
+    contacts: {vk: string},
+    lookingForAJob: boolean | null;
+    lookingForAJobDescription: string | null;
+    fullName: string | null;
+    userId: number;
+    photos: {
+        small: string | undefined;
+        large: string | undefined;
+    }
+}
 
 const ADD_POST = 'ADD_POST';
 const CHANGE_TEXT = 'CHANGE_TEXT';
+const SET_USER_INFO = 'SET_USER_INFO' as const;
 
+//AC
 export const addPost = () => ({type: ADD_POST} as const);
 export const updateNewPostText = (newText: string) => (
     {
         type: CHANGE_TEXT, newPostText: newText
-    } as const //todo узнать про as const
+    } as const
 );
+
+export const setUserInfo = (profileInfo: userProfileInfo) => ({type:SET_USER_INFO, profileInfo});
+
 
 let initialState:profilePageType =  {
     newPostText: '',
@@ -42,6 +60,7 @@ let initialState:profilePageType =  {
             avatar: 'https://banner2.cleanpng.com/20181231/fta/kisspng-computer-icons-user-profile-portable-network-graph-circle-svg-png-icon-free-download-5-4714-onli-5c2a3809d6e8e6.1821006915462707298803.jpg'
         },
     ],
+    userProfileInfo: null
 }
 
 export const profileReducer = (state: profilePageType = initialState, action: ActionsType):profilePageType => {
@@ -60,6 +79,9 @@ export const profileReducer = (state: profilePageType = initialState, action: Ac
         case CHANGE_TEXT:
             // state.newPostText = action.newPostText;
             return {...state, newPostText: action.newPostText};
+        case "SET_USER_INFO": {
+            return {...state, userProfileInfo: action.profileInfo}
+        }
         default:
             return state;
     }

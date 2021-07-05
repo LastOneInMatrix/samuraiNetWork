@@ -1,4 +1,5 @@
 import React from 'react';
+import {NavLink} from "react-router-dom";
 import styles from "./Users.module.css";
 import {usersType} from "../State/userReducer";
 
@@ -19,7 +20,7 @@ export const UserHelper = (props: UserOwnPropsType) => {
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i);
     }
-    console.log(pages);
+
     return <>
         <div style={{margin: '10px'}}>
             {pages.map((e, i) => <span
@@ -36,9 +37,11 @@ export const UserHelper = (props: UserOwnPropsType) => {
             props.users.map(user => {
                 return <div key={user.id}>
                     <h3>{user.name}</h3>
-                    <img className={styles.messages}
-                         src={user.photos.small ? user.photos.small : 'https://www.w3schools.com/w3css/img_avatar3.png'}
-                         alt={'Just avatar'}/>
+                    <NavLink to={'/Profile'}>
+                        <img className={styles.messages}
+                             src={user.photos.small ? user.photos.small : 'https://www.w3schools.com/w3css/img_avatar3.png'}
+                             alt={'Just avatar'}/>
+                    </NavLink>
                     <em>{user.status}</em>
                     {user.followed ?
                         <button onClick={() => {

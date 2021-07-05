@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import {
     addPost,
     updateNewPostText,
-    arrayPostsTypes,
+    arrayPostsTypes, userProfileInfo,
 } from "../../State/profileReducer";
 import {ProfileInfo} from "./ProfileInfo";
 import {AppStateType} from "../../State/redux-store";
@@ -14,6 +14,7 @@ type ProfileInfoPropsType = {
     img: string;
     title: string;
     placeholder: string;
+    userInfo: userProfileInfo | null;
 }
 export type mapStateToPropsType = {
     posts: arrayPostsTypes,

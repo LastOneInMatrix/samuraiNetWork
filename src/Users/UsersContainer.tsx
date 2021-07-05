@@ -9,7 +9,7 @@ import {
     setUsersHandler,
     setUsersPage,
     unFollowHandler,
-    usersType
+    usersType, userType
 } from "../State/userReducer";
 import {UserHelper} from "./User";
 import {Preloader} from "../Common/Preloader/Preloader";
@@ -47,7 +47,7 @@ class UsersContainer extends React.Component<UsersConnectedPropsType, MyState> {
 
     componentDidMount() {
         this.props.setFetching(true);
-        axiosInstance.get(`users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
+        axiosInstance.get<{items: Array<userType>, totalCount: number}>(`users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
             this.props.setFetching(false);
             this.props.setUsersHandler([...response.data.items]);
             this.props.getTotalCount(response.data.totalCount);
@@ -62,7 +62,6 @@ class UsersContainer extends React.Component<UsersConnectedPropsType, MyState> {
         });
     }
     render() {
-        console.log(this.props.isFetching);
         return <>
             {
                 this.props.isFetching ? <Preloader/> :  <UserHelper
@@ -90,18 +89,6 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
         isFetching: state.usersReducer.isFetching
     }
 };
-
-
-// const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
-//     return {
-//         followHandler: (userId: number) => dispatch(followAC(userId)),
-//         unFollowHandler: (userId: number) => dispatch(unFollowAC(userId)),
-//         setUsersHandler: (users: usersType) => dispatch(setUsersAC(users)),
-//         getTotalCount: (totalSize: number) => dispatch(getTotalCountAC(totalSize)),
-//         setUsersPage: (page: number) => dispatch(setUsersPageAC(page)),
-//         setFetching: (isFetching: boolean) => dispatch(setFetchingAC(isFetching))
-//     }
-// };
 
 export const UsersConnectedContainer = connect(mapStateToProps,
     ({followHandler,

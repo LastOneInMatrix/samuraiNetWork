@@ -3,7 +3,7 @@ import {addMessagesActionCreator, changeMessageTextActionCreator, dialogReducer}
 import {
     addPost,
     updateNewPostText,
-    profileReducer
+    profileReducer, setUserInfo
 } from "./profileReducer";
 import {showSidebarActionCreator, sidebarReducer} from "./sidebarReducer";
 import {
@@ -27,7 +27,8 @@ export type ActionsType =
     ReturnType<typeof setUsersHandler>|
     ReturnType<typeof setUsersPage>|
     ReturnType<typeof getTotalCount>|
-    ReturnType<typeof setFetching>;  // typeof - берет полностью функцию и создает для нее конретный тип
+    ReturnType<typeof setFetching>|
+    ReturnType<typeof setUserInfo>;  // typeof - берет полностью функцию и создает для нее конретный тип
 
 let rootReducers = combineReducers({
     profilePage: profileReducer,

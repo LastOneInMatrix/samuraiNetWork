@@ -3,13 +3,13 @@ import {
     Route,
     Redirect
 } from "react-router-dom";
-import {Content} from "./Content/Content";
 import {Footer} from "./Footer/Footer";
 import {Navigation} from "./Nav/Navigation";
 import {Header} from "./Header/Header";
  import {UsersConnectedContainer} from "./Users/UsersContainer";
 import {DialogsContainer} from "./Dialogs/DialogsContainer";
  import style from './App.module.css';
+ import {ConnectedContentContainer} from "./Content/ContentContainer";
 
 
 type AppPropsType = {
@@ -23,7 +23,7 @@ function App({...props}:AppPropsType) {
         <div className={style.AppWrapper}>
             <Route exact path={'/'}><Redirect to='/Profile' /></Route>
             <Route  path='/Dialogs' render={ () => <DialogsContainer page={1}  isActive={false}/> }/>
-            <Route  path='/Profile' render={ () => <Content /> }/>
+            <Route  path='/Profile' render={ () => <ConnectedContentContainer /> }/>
             <Route  path={'/users'} render={ () => <UsersConnectedContainer forTest={'ТЕСТ'}/>} />
         </div>
         <Footer />

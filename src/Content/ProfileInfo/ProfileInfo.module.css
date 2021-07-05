@@ -2,6 +2,7 @@
 .main{
     border: 1px solid;
 }
+
 img{
     width: 100px;
     margin: 10px;
@@ -10,5 +11,13 @@ img{
     font-size: 30px;
     /*text-decoration: line-through;*/
     font-family: 'Zilla Slab Highlight', cursive;
+}
 
+.info{
+    display: grid;
+    column-gap: 0;
+    grid-template-columns: 3fr 2fr 3fr;
+}
+.infoMiniContainer{
+    /*display: inline-flex;*/
 }
