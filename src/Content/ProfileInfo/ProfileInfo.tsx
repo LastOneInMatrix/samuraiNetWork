@@ -29,7 +29,7 @@ export const ProfileInfo: React.FC<ProfileInfoPropsType> = (props) => {
         <div className={style.info}>
             <div className={style.infoMiniContainer}>
                 <b style={{fontSize: '20px'}}>{props.userInfo?.fullName}</b>
-                <img src={props.userInfo ? props.userInfo?.photos?.small: ''} alt={'textPicture'}/>
+                < img src={props.userInfo?.photos?.small ? props.userInfo?.photos?.small : 'https://e7.pngegg.com/pngimages/709/358/png-clipart-price-toyservice-soil-business-no-till-farming-no-rectangle-pie.png'} alt={'textPicture'}/>
                 <div><b>Статус: </b> <p>{props.userInfo?.aboutMe}</p></div>
             </div>
             <div className={style.infoMiniContainer}>

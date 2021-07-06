@@ -17,8 +17,8 @@ export type userProfileInfo = {
     fullName: string | null;
     userId: number;
     photos: {
-        small: string | undefined;
-        large: string | undefined;
+        small: string;
+        large: string;
     }
 }
 

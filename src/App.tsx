@@ -23,7 +23,7 @@ function App({...props}:AppPropsType) {
         <div className={style.AppWrapper}>
             <Route exact path={'/'}><Redirect to='/Profile' /></Route>
             <Route  path='/Dialogs' render={ () => <DialogsContainer page={1}  isActive={false}/> }/>
-            <Route  path='/Profile' render={ () => <ConnectedContentContainer /> }/>
+            <Route  path='/Profile/:userId?' render={ () => <ConnectedContentContainer defaultUserId={2}/> }/>
             <Route  path={'/users'} render={ () => <UsersConnectedContainer forTest={'ТЕСТ'}/>} />
         </div>
         <Footer />

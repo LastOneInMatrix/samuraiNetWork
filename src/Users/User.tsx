@@ -37,10 +37,13 @@ export const UserHelper = (props: UserOwnPropsType) => {
             props.users.map(user => {
                 return <div key={user.id}>
                     <h3>{user.name}</h3>
-                    <NavLink to={'/Profile'}>
-                        <img className={styles.messages}
-                             src={user.photos.small ? user.photos.small : 'https://www.w3schools.com/w3css/img_avatar3.png'}
-                             alt={'Just avatar'}/>
+                    <NavLink to={'/Profile/' + user.id}>
+
+                           <img
+                               className={styles.messages}
+                               src={user.photos.small ? user.photos.small : 'https://www.w3schools.com/w3css/img_avatar3.png'}
+                               alt={'Just avatar'}
+                           />
                     </NavLink>
                     <em>{user.status}</em>
                     {user.followed ?
