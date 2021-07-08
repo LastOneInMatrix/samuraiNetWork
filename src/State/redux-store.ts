@@ -15,6 +15,8 @@ import {
     unFollowHandler,
     usersReducer
 } from "./userReducer";
+import {AuthReducerActionsType} from "./authReducer/actions";
+import {authReducer} from "./authReducer/authReducer";
 
 export type ActionsType =
     ReturnType<typeof changeMessageTextActionCreator> |  //returnType - берет у типа функции и отсекает только возвращаемую часть
@@ -28,13 +30,15 @@ export type ActionsType =
     ReturnType<typeof setUsersPage>|
     ReturnType<typeof getTotalCount>|
     ReturnType<typeof setFetching>|
-    ReturnType<typeof setUserInfo>;  // typeof - берет полностью функцию и создает для нее конретный тип
+    ReturnType<typeof setUserInfo>|
+    AuthReducerActionsType;  // typeof - берет полностью функцию и создает для нее конретный тип
 
 let rootReducers = combineReducers({
     profilePage: profileReducer,
     dialogPage: dialogReducer,
     sidebar: sidebarReducer,
-    usersReducer: usersReducer
+    usersReducer: usersReducer,
+    authReducer: authReducer
 });
 export type AppStateType = ReturnType<typeof rootReducers> //тип стейта
 

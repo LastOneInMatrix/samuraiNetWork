@@ -14,7 +14,7 @@ type ProfileInfoPropsType = {
 }  & mapStateToPropsType & mapDispatchToPropsType;
 
 export const ProfileInfo: React.FC<ProfileInfoPropsType> = (props) => {
-    console.log(props)
+
     const onAddPost = () => {
         props.addPost();
     };
