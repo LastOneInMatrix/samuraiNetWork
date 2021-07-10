@@ -1,6 +1,5 @@
 import React from 'react';
 import {connect} from "react-redux";
-import axios from "axios";
 import {AppStateType} from "../State/redux-store";
 import {
     followHandler,
@@ -9,10 +8,11 @@ import {
     setUsersHandler,
     setUsersPage,
     unFollowHandler,
-    usersType, userType
+    usersType
 } from "../State/userReducer";
 import {UserHelper} from "./User";
 import {Preloader} from "../Common/Preloader/Preloader";
+import {getUser} from "../API/requestAPI";
 
 export type UsersPropsTypes = {
     forTest: string
@@ -38,26 +38,28 @@ type MyState = {
 };
 
 
-const axiosInstance = axios.create({baseURL: 'https://social-network.samuraijs.com/api/1.0/', withCredentials: true});
-
 class UsersContainer extends React.Component<UsersConnectedPropsType, MyState> {
     constructor(props: UsersConnectedPropsType) {
         super(props);
     }
     componentDidMount() {
         this.props.setFetching(true);
-        axiosInstance.get<{items: Array<userType>, totalCount: number}>(`users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
+        getUser(this.props.currentPage, this.props.pageSize).then((data) => {
+
             this.props.setFetching(false);
-            this.props.setUsersHandler([...response.data.items]);
-            this.props.getTotalCount(response.data.totalCount);
-        }); // компонент был вмантирован в DOM
+            this.props.setUsersHandler([...data.items]);
+            this.props.getTotalCount(data.totalCount);
+         // компонент был вмантирован в DOM
+        })
+
     }
     setUserPage(page: number)  {
         this.props.setFetching(true);
         this.props.setUsersPage(page);
-        axiosInstance.get(`users?page=${page}&count=${this.props.pageSize}`).then(response => {
+
+        getUser(page, this.props.pageSize).then(data => {
             this.props.setFetching(false);
-            this.props.setUsersHandler(response.data.items);
+            this.props.setUsersHandler(data.items);
         });
     }
     render() {

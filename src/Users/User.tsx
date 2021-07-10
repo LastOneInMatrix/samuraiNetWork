@@ -2,7 +2,8 @@ import React, {MouseEvent} from 'react';
 import {NavLink} from "react-router-dom";
 import styles from "./Users.module.css";
 import {usersType, userType} from "../State/userReducer";
-import axios from "axios";
+import {setFollowUnfollow} from "../API/requestAPI";
+
 
 type UserOwnPropsType = {
     setUserPage: (page: number) => void;
@@ -23,13 +24,14 @@ export const UserHelper = (props: UserOwnPropsType) => {
         pages.push(i);
     }
 
-    const axiosInstance = axios.create({baseURL: 'https://social-network.samuraijs.com/api/1.0/', withCredentials: true, headers: {'API-KEY': 'a8a869e7-f94e-4a9a-a53f-4ef40e96d952'}});
+    //todo почему без игнора TS не работает
 
     const followHandler = (user: userType, button: 'post' | 'delete') => (e: MouseEvent<HTMLButtonElement>) => {
         console.log(e.currentTarget.dataset.name);
-        axiosInstance[button](`follow/${user.id}`)
-                .then((response) => {
-                   response.data.resultCode === 0 && button === 'post' ? props.followHandler(user.id) : props.unFollowHandler(user.id);
+        setFollowUnfollow(user.id, button)
+                .then(({data}) => {
+                   // @ts-ignore
+                    data.resultCode === 0 && button === 'post' ? props.followHandler(user.id) : props.unFollowHandler(user.id);
                 })
     } //todo как перенести функцию handler сюда - каррирование - вызвав первую функцию - он вернет вторую функцию которая уже с параметром евент и подходит под условия
 
