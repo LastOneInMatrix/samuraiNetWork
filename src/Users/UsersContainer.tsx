@@ -32,7 +32,7 @@ export  type MapDispatchToPropsType = {
     getTotalCount: (totalSize: number) => void;
     setUsersPage: (page: number) => void;
     setFetching: (isFetching: boolean) => void;
-} //todo как не путаться в импортах при склеивании конекченных типов?
+}
 type MyState = {
     count: number; // like this
 };
@@ -44,7 +44,6 @@ class UsersContainer extends React.Component<UsersConnectedPropsType, MyState> {
     constructor(props: UsersConnectedPropsType) {
         super(props);
     }
-
     componentDidMount() {
         this.props.setFetching(true);
         axiosInstance.get<{items: Array<userType>, totalCount: number}>(`users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
@@ -53,7 +52,7 @@ class UsersContainer extends React.Component<UsersConnectedPropsType, MyState> {
             this.props.getTotalCount(response.data.totalCount);
         }); // компонент был вмантирован в DOM
     }
-    setUserPage = (page: number)  => {
+    setUserPage(page: number)  {
         this.props.setFetching(true);
         this.props.setUsersPage(page);
         axiosInstance.get(`users?page=${page}&count=${this.props.pageSize}`).then(response => {
@@ -71,7 +70,7 @@ class UsersContainer extends React.Component<UsersConnectedPropsType, MyState> {
                     pageSize={this.props.pageSize}
                     followHandler={this.props.followHandler}
                     unFollowHandler={this.props.unFollowHandler}
-                    setUserPage={this.setUserPage}
+                    setUserPage={this.setUserPage.bind(this)}   //bind-ить надо при передаче
                 />
             }
         </>

@@ -48,7 +48,7 @@ export type AppStateType = ReturnType<typeof rootReducers> //тип стейта
 // Чтобы динамически создать тип который нам возвращает rootReducer, воспользуемся оператором ReturnType
 // Оператор ReturnType анализирует тип переданный в нее функции (rootReducer) и берет ее возвращаемый тип
 
-export let store = createStore(rootReducers); //todo узнать как типизировать store
+export let store = createStore(rootReducers);
 export type AppStoreType = typeof store // тип стор - должен стоять после создания createStore(rootReducers)
 
 
