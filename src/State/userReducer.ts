@@ -5,7 +5,8 @@ const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET_USERS';
 const SET_USER_PAGES = 'SET_USER_PAGES';
 const GET_TOTAL_COUNT = 'GET_TOTAL_COUNT';
-const SET_FETCHING = 'SET_FETCHING'
+const SET_FETCHING = 'SET_FETCHING';
+const TOGGLE_IS_FOLLOWING = 'TOGGLE_IS_FOLLOWING';
 
 
 export type userType = {
@@ -26,6 +27,7 @@ const initialState = {
     pageSize: 20,
     currentPage: 1,
     isFetching: false,
+    followingInProgress: [18257]
 }
 
 
@@ -48,14 +50,12 @@ export const usersReducer = (state: initialStateType = initialState, action: Act
                 users: state.users.map(user => action.userId === user.id ? {...user, followed: false} : user)
             }
         }
-
         case 'SET_USERS': {
             return {
                     ...state,
                     users: [...action.users] // todo если изночальный тоже раскидывать то дважды почему?
                 }
         }
-
         case "SET_USER_PAGES": {
             return {...state, currentPage: action.page}
         }
@@ -65,7 +65,9 @@ export const usersReducer = (state: initialStateType = initialState, action: Act
         case "SET_FETCHING": {
             return {...state, isFetching: action.isFetching}
         }
-
+        case TOGGLE_IS_FOLLOWING: {
+            return {...state, followingInProgress: [...action.followingInProgress]}
+        }
         default:
             return state;
     }
@@ -76,3 +78,4 @@ export const setUsersHandler = (users: usersType) => ({type: SET_USERS, users} a
 export const setUsersPage = (page: number) => ({type: SET_USER_PAGES, page} as const);
 export const getTotalCount = (totalSize: number) => ({type: GET_TOTAL_COUNT, totalSize} as const);
 export const setFetching = (isFetching: boolean) => ({type:SET_FETCHING, isFetching} as const);
+export const setFollowing = (followingInProgress: Array<number>) => ({type:TOGGLE_IS_FOLLOWING, followingInProgress} as const);

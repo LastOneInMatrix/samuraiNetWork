@@ -9,7 +9,7 @@ import {showSidebarActionCreator, sidebarReducer} from "./sidebarReducer";
 import {
     followHandler,
     getTotalCount,
-    setFetching,
+    setFetching, setFollowing,
     setUsersHandler,
     setUsersPage,
     unFollowHandler,
@@ -31,6 +31,7 @@ export type ActionsType =
     ReturnType<typeof getTotalCount>|
     ReturnType<typeof setFetching>|
     ReturnType<typeof setUserInfo>|
+    ReturnType<typeof setFollowing>|
     AuthReducerActionsType;  // typeof - берет полностью функцию и создает для нее конретный тип
 
 let rootReducers = combineReducers({

@@ -11,8 +11,10 @@ type UserOwnPropsType = {
     pageSize: number;
     currentPage: number;
     users: usersType;
+    followingInProgress: Array<number>;
     followHandler: (userId: number) => void;
     unFollowHandler: (userId: number) => void;
+    setFollowing: (following: Array<number>) => void;
 }
 
 
@@ -27,11 +29,12 @@ export const UserHelper = (props: UserOwnPropsType) => {
     //todo почему без игнора TS не работает
 
     const followHandler = (user: userType, button: 'post' | 'delete') => (e: MouseEvent<HTMLButtonElement>) => {
-        console.log(e.currentTarget.dataset.name);
+        props.setFollowing([user.id]);
         setFollowUnfollow(user.id, button)
                 .then(({data}) => {
                    // @ts-ignore
                     data.resultCode === 0 && button === 'post' ? props.followHandler(user.id) : props.unFollowHandler(user.id);
+                    props.setFollowing([]);
                 })
     } //todo как перенести функцию handler сюда - каррирование - вызвав первую функцию - он вернет вторую функцию которая уже с параметром евент и подходит под условия
 
@@ -62,9 +65,9 @@ export const UserHelper = (props: UserOwnPropsType) => {
                     </NavLink>
                     <em>{user.status}</em>
                     {user.followed ?
-                        <button data-name={'delete'} onClick={followHandler(user, 'delete')}>UnFollow</button>
+                        <button disabled={props.followingInProgress.some((element) => user.id === element)} data-name={'delete'} onClick={followHandler(user, 'delete')}>UnFollow</button>
                         :
-                        <button data-name={'post'} onClick={followHandler(user, 'post')}>Follow</button>
+                        <button disabled={props.followingInProgress.some((element) => user.id === element)} data-name={'post'} onClick={followHandler(user, 'post')}>Follow</button>
 
                     }
                     <hr
