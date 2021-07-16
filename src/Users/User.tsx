@@ -12,9 +12,7 @@ type UserOwnPropsType = {
     currentPage: number;
     users: usersType;
     followingInProgress: Array<number>;
-    followHandler: (userId: number) => void;
-    unFollowHandler: (userId: number) => void;
-    setFollowing: (following: Array<number>) => void;
+    followUnfollow: (user: userType, button: 'post' | 'delete') => void;
 }
 
 
@@ -26,16 +24,10 @@ export const UserHelper = (props: UserOwnPropsType) => {
         pages.push(i);
     }
 
-    //todo почему без игнора TS не работает
+
 
     const followHandler = (user: userType, button: 'post' | 'delete') => (e: MouseEvent<HTMLButtonElement>) => {
-        props.setFollowing([user.id]);
-        setFollowUnfollow(user.id, button)
-                .then(({data}) => {
-                   // @ts-ignore
-                    data.resultCode === 0 && button === 'post' ? props.followHandler(user.id) : props.unFollowHandler(user.id);
-                    props.setFollowing([]);
-                })
+        props.followUnfollow(user, button);
     } //todo как перенести функцию handler сюда - каррирование - вызвав первую функцию - он вернет вторую функцию которая уже с параметром евент и подходит под условия
 
     return <>

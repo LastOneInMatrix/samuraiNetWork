@@ -15,7 +15,7 @@ export const getUser = (currentPage: number, pageSize: number) => {
 
 export const setFollowUnfollow = (id: number, button: 'post' | 'delete') => {
     return axiosInstance
-        [button]<{items: Array<userType>, totalCount: number}>(`follow/${id}`)
+        [button]<{items: Array<userType>, totalCount: number}>(`follow/${id}`);
 }
 
 

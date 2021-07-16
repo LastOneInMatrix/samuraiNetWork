@@ -1,5 +1,6 @@
-import {combineReducers, createStore} from "redux";
+import {applyMiddleware, combineReducers, createStore} from "redux";
 import {addMessagesActionCreator, changeMessageTextActionCreator, dialogReducer} from "./dialogReducer";
+import thunk from "redux-thunk";
 import {
     addPost,
     updateNewPostText,
@@ -17,6 +18,7 @@ import {
 } from "./userReducer";
 import {AuthReducerActionsType} from "./authReducer/actions";
 import {authReducer} from "./authReducer/authReducer";
+
 
 export type ActionsType =
     ReturnType<typeof changeMessageTextActionCreator> |  //returnType - берет у типа функции и отсекает только возвращаемую часть
@@ -49,9 +51,9 @@ export type AppStateType = ReturnType<typeof rootReducers> //тип стейта
 // Чтобы динамически создать тип который нам возвращает rootReducer, воспользуемся оператором ReturnType
 // Оператор ReturnType анализирует тип переданный в нее функции (rootReducer) и берет ее возвращаемый тип
 
-export let store = createStore(rootReducers);
+export let store = createStore(rootReducers, applyMiddleware(thunk));
 export type AppStoreType = typeof store // тип стор - должен стоять после создания createStore(rootReducers)
-
+export type AppDispatch = typeof store.dispatch
 
 declare global {
     interface Window {

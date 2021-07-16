@@ -2,13 +2,13 @@ import React from 'react';
 import {connect} from "react-redux";
 import {AppStateType} from "../State/redux-store";
 import {
-    followHandler,
-    getTotalCount,
+    followHandler, followUnfollowThunkCreator,
+    getTotalCount, getUserThunkCreator,
     setFetching, setFollowing,
     setUsersHandler,
     setUsersPage,
     unFollowHandler,
-    usersType
+    usersType, userType
 } from "../State/userReducer";
 import {UserHelper} from "./User";
 import {Preloader} from "../Common/Preloader/Preloader";
@@ -29,11 +29,10 @@ export type UsersConnectedPropsType = MapStateToPropsType & MapDispatchToPropsTy
 export  type MapDispatchToPropsType = {
     followHandler: (userId: number) => void;
     unFollowHandler: (userId: number) => void;
-    setUsersHandler: (users: usersType) => void;
-    getTotalCount: (totalSize: number) => void;
     setUsersPage: (page: number) => void;
-    setFetching: (isFetching: boolean) => void;
     setFollowing: (following: Array<number>) => void;
+    getUser: (currentPage: number, pageSize: number) => void;
+    followUnfollowThunkCreator: (user: userType, button: 'post' | 'delete') => void;
 }
 type MyState = {
     count: number; // like this
@@ -45,24 +44,11 @@ class UsersContainer extends React.Component<UsersConnectedPropsType, MyState> {
         super(props);
     }
     componentDidMount() {
-        this.props.setFetching(true);
-        getUser(this.props.currentPage, this.props.pageSize).then((data) => {
-
-            this.props.setFetching(false);
-            this.props.setUsersHandler([...data.items]);
-            this.props.getTotalCount(data.totalCount);
-         // компонент был вмантирован в DOM
-        })
-
+        this.props.getUser(this.props.currentPage, this.props.pageSize);
     }
     setUserPage(page: number)  {
-        this.props.setFetching(true);
         this.props.setUsersPage(page);
-
-        getUser(page, this.props.pageSize).then(data => {
-            this.props.setFetching(false);
-            this.props.setUsersHandler(data.items);
-        });
+        this.props.getUser(page, this.props.pageSize);
     }
     render() {
         return <>
@@ -72,11 +58,9 @@ class UsersContainer extends React.Component<UsersConnectedPropsType, MyState> {
                     currentPage={this.props.currentPage}
                     totalSize={this.props.totalSize}
                     pageSize={this.props.pageSize}
-                    followHandler={this.props.followHandler}
-                    unFollowHandler={this.props.unFollowHandler}
-                    setFollowing={this.props.setFollowing}
                     followingInProgress={this.props.followingInProgress}
                     setUserPage={this.setUserPage.bind(this)}   //bind-ить надо при передаче
+                    followUnfollow={this.props.followUnfollowThunkCreator}
                 />
             }
         </>
@@ -99,11 +83,10 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
 export const UsersConnectedContainer = connect(mapStateToProps,
     ({followHandler,
         unFollowHandler,
-        setUsersHandler,
-        getTotalCount,
         setUsersPage,
-        setFetching,
-        setFollowing
+        setFollowing,
+        getUser: getUserThunkCreator,
+        followUnfollowThunkCreator
     })
 )(UsersContainer) // в данном случае предпологается если в mapDispatchToProps передается не функция, а объект, то он автоматически будет создат функции и прокинет в них диспатч
 //Todo после рефакторинга mapDispatchToProps, приложение стало работать намного быстрее

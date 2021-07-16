@@ -1,4 +1,5 @@
-import {ActionsType} from "./redux-store";
+import {ActionsType, AppDispatch} from "./redux-store";
+import {getUser, setFollowUnfollow} from "../API/requestAPI";
 
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
@@ -79,3 +80,29 @@ export const setUsersPage = (page: number) => ({type: SET_USER_PAGES, page} as c
 export const getTotalCount = (totalSize: number) => ({type: GET_TOTAL_COUNT, totalSize} as const);
 export const setFetching = (isFetching: boolean) => ({type:SET_FETCHING, isFetching} as const);
 export const setFollowing = (followingInProgress: Array<number>) => ({type:TOGGLE_IS_FOLLOWING, followingInProgress} as const);
+
+export const getUserThunkCreator = (currentPage: number, pageSize: number) => {
+   return (dispatch: AppDispatch) => {
+       dispatch(setFetching(true));
+       getUser(currentPage, pageSize).then((data) => {
+
+           dispatch(setFetching(false));
+           dispatch(setUsersHandler([...data.items]));
+           dispatch(getTotalCount(data.totalCount));
+           // компонент был вмантирован в DOM
+       })
+   }
+}
+
+export const followUnfollowThunkCreator = (user: userType, button: 'post' | 'delete') => {
+    return (dispatch: AppDispatch) => {
+        debugger;
+        dispatch(setFollowing([user.id]));
+        setFollowUnfollow(user.id, button)
+            .then(({data}) => {
+                // @ts-ignore
+                data.resultCode === 0 && button === 'post' ? dispatch(followHandler(user.id)) : dispatch(unFollowHandler(user.id));
+                dispatch(setFollowing([]));
+            })
+    }
+}
