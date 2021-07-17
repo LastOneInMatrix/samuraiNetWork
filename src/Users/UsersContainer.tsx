@@ -2,17 +2,17 @@ import React from 'react';
 import {connect} from "react-redux";
 import {AppStateType} from "../State/redux-store";
 import {
-    followHandler, followUnfollowThunkCreator,
-    getTotalCount, getUserThunkCreator,
-    setFetching, setFollowing,
-    setUsersHandler,
+    followHandler,
+    followUnfollowThunkCreator,
+    getUserThunkCreator,
+    setFollowing,
     setUsersPage,
     unFollowHandler,
     usersType, userType
 } from "../State/userReducer";
 import {UserHelper} from "./User";
 import {Preloader} from "../Common/Preloader/Preloader";
-import {getUser} from "../API/requestAPI";
+
 
 export type UsersPropsTypes = {
     forTest: string
@@ -43,17 +43,20 @@ class UsersContainer extends React.Component<UsersConnectedPropsType, MyState> {
     constructor(props: UsersConnectedPropsType) {
         super(props);
     }
+
     componentDidMount() {
         this.props.getUser(this.props.currentPage, this.props.pageSize);
     }
-    setUserPage(page: number)  {
+
+    setUserPage(page: number) {
         this.props.setUsersPage(page);
         this.props.getUser(page, this.props.pageSize);
     }
+
     render() {
         return <>
             {
-                this.props.isFetching ? <Preloader/> :  <UserHelper
+                this.props.isFetching ? <Preloader/> : <UserHelper
                     users={this.props.users}
                     currentPage={this.props.currentPage}
                     totalSize={this.props.totalSize}
@@ -81,12 +84,13 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
 };
 
 export const UsersConnectedContainer = connect(mapStateToProps,
-    ({followHandler,
+    ({
+        followHandler,
         unFollowHandler,
         setUsersPage,
-        setFollowing,
+        setFollowing,  // (a,b) => dispatch(actionCreator(a,b));
         getUser: getUserThunkCreator,
-        followUnfollowThunkCreator
+        followUnfollowThunkCreator //(a,b) => (dispath) =>  dispatch(setFollowing(a,b)) - в случае с thunk
     })
 )(UsersContainer) // в данном случае предпологается если в mapDispatchToProps передается не функция, а объект, то он автоматически будет создат функции и прокинет в них диспатч
 //Todo после рефакторинга mapDispatchToProps, приложение стало работать намного быстрее

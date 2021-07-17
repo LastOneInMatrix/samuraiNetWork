@@ -1,5 +1,6 @@
 import axios from "axios";
 import {userType} from "../State/userReducer";
+import {AuthInitialStateType} from "../State/authReducer/authReducer";
 
 export const axiosInstance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
@@ -18,5 +19,14 @@ export const setFollowUnfollow = (id: number, button: 'post' | 'delete') => {
         [button]<{items: Array<userType>, totalCount: number}>(`follow/${id}`);
 }
 
+
+export const getUserProfile =  (userIdFromURL: string) => {
+   return axios.get('https://social-network.samuraijs.com/api/1.0/profile/' + (userIdFromURL ?  userIdFromURL : 2))
+}
+
+export const getLoginInformationForHeader = () => {
+    return axiosInstance.get<{data: AuthInitialStateType, resultCode: number}>(`auth/me`)
+
+}
 
 

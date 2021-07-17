@@ -1,10 +1,10 @@
 import React, {} from 'react';
-import axios from "axios";
 import {RouteComponentProps, withRouter } from 'react-router-dom';
 import {connect} from "react-redux";
-import {setUserInfo, userProfileInfo} from "../State/profileReducer";
+import {getInfoAndSetUserInfoThunkCreator, setUserInfo, userProfileInfo} from "../State/profileReducer";
 import {AppStateType} from "../State/redux-store";
 import {Content} from "./Content";
+
 
 
 
@@ -13,6 +13,7 @@ type MapStateToProps = {
 };
 type MapDispatchToProps = {
     setUserInfo: (profileInfo: userProfileInfo) => void;
+    getInfoAndSetUserInfoThunkCreator: (userIdFromURL: string) => void;
 }
 type PathParamsType = {
     userId: string;
@@ -33,9 +34,7 @@ class ContentContainer extends React.Component<ConnectedPropsType, MyStateType> 
 
     componentDidMount() {
         const userIdFromURL = this.props.match.params.userId;
-        axios.get('https://social-network.samuraijs.com/api/1.0/profile/' + (userIdFromURL ?  userIdFromURL : 2)).then((response) => {
-            this.props.setUserInfo({...response.data});
-        })
+        this.props.getInfoAndSetUserInfoThunkCreator(userIdFromURL);
     };
 
     render() {
@@ -55,6 +54,7 @@ const WithRouterContentContainer = withRouter(ContentContainer);
 
 export const ConnectedContentContainer = connect<MapStateToProps,MapDispatchToProps,OwnPropsType,AppStateType>(mapStateToProps,
     {
+        getInfoAndSetUserInfoThunkCreator,
         setUserInfo
     }
 )(WithRouterContentContainer)

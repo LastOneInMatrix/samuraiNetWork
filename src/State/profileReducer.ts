@@ -1,6 +1,7 @@
-import {ActionsType} from "./redux-store";
+import {ActionsType, AppDispatch} from "./redux-store";
 import {PostPropsType} from "../Content/Posts/Post";
 import {v1} from "uuid";
+import {getUserProfile} from "../API/requestAPI";
 
 export type arrayPostsTypes = Array<PostPropsType>;
 
@@ -35,6 +36,12 @@ export const updateNewPostText = (newText: string) => (
 );
 
 export const setUserInfo = (profileInfo: userProfileInfo) => ({type:SET_USER_INFO, profileInfo});
+export const getInfoAndSetUserInfoThunkCreator = (userIdFromURL: string) =>  (dispatch: AppDispatch) => {
+       getUserProfile(userIdFromURL)
+       .then((response) => {
+           dispatch(setUserInfo({...response.data}));
+       });
+}
 
 
 let initialState:profilePageType =  {
@@ -86,3 +93,4 @@ export const profileReducer = (state: profilePageType = initialState, action: Ac
             return state;
     }
 }
+
