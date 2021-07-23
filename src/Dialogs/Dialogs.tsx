@@ -4,6 +4,7 @@ import {Message} from './Message/Message'
 import styles from './Dialogs.module.css';
 import {DialogsConnectedPropsType} from "./DialogsContainer";
 import {InitialStateType} from "../State/dialogReducer";
+import {Redirect} from "react-router-dom";
 
 
 type DialogsPropsTypes = {
@@ -23,6 +24,7 @@ export const Dialogs: React.FC<DialogsPropsTypes & DialogsConnectedPropsType>  =
     const addMessage = () => {
         props.addMessage()
     };
+    console.log(props)
 //UI
     const dialogsDataJsx: Array<JSX.Element> = state.dialogsData.map((e, i) => {
         return e.id == 1 ? <DialogItem key={i} name={e.name} id={e.id} isActive={true}/> :

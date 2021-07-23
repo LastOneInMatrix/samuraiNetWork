@@ -22,10 +22,11 @@ export const setUserLoginData = (id: number|null, login: string|null, email: str
 }
 export const getUserLoginDataThunkCreator = () => {
     return (dispatch: AppDispatch) => {
-        debugger;
         getLoginInformationForHeader().then(response => {
-            const {id, login, email} = response.data.data;
-            dispatch(setUserLoginData(id, login, email));
+            if(response.data.resultCode === 0) {
+                const {id, login, email} = response.data.data;
+                dispatch(setUserLoginData(id, login, email));
+            }
         }); // компонент был вмантирован в DOM
     }
 }

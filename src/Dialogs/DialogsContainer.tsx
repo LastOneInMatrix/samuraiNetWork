@@ -8,6 +8,7 @@ import {
 } from '../State/dialogReducer'
 import {Dialogs} from "./Dialogs";
 import {AppStateType} from "../State/redux-store";
+import {MstpType, WithAuthRedirect} from "../hoc/WithAuthRedirect";
 
 
 type DialogsPropsTypes = {
@@ -40,4 +41,6 @@ const mapStateToDispatch = (dispatch: Dispatch): mapDispatchToPropsTypes => {   
         addMessage: () => {dispatch(addMessagesActionCreator())},
     }
 };
-export const  DialogsContainer: React.FC<DialogsPropsTypes> = connect(mapStateToProps, mapStateToDispatch)(Dialogs)
+
+const  Wrapped = WithAuthRedirect(Dialogs)
+export const  DialogsContainer: React.FC<DialogsPropsTypes> = connect(mapStateToProps, mapStateToDispatch)(Wrapped)

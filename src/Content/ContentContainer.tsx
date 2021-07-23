@@ -1,15 +1,17 @@
 import React, {} from 'react';
-import {RouteComponentProps, withRouter } from 'react-router-dom';
+import {Redirect, RouteComponentProps, withRouter} from 'react-router-dom';
 import {connect} from "react-redux";
 import {getInfoAndSetUserInfoThunkCreator, setUserInfo, userProfileInfo} from "../State/profileReducer";
 import {AppStateType} from "../State/redux-store";
 import {Content} from "./Content";
+import {WithAuthRedirect} from "../hoc/WithAuthRedirect";
 
 
 
 
 type MapStateToProps = {
     userProfileInfo: userProfileInfo | null;
+    authorization: boolean
 };
 type MapDispatchToProps = {
     setUserInfo: (profileInfo: userProfileInfo) => void;
@@ -46,15 +48,16 @@ class ContentContainer extends React.Component<ConnectedPropsType, MyStateType> 
 
 const mapStateToProps = (state: AppStateType): MapStateToProps => {
     return {
-        userProfileInfo: state.profilePage.userProfileInfo
+        userProfileInfo: state.profilePage.userProfileInfo,
+        authorization: state.authReducer.authorization
     }
 }
 
-const WithRouterContentContainer = withRouter(ContentContainer);
-
+const WithRouterContentContainer =  withRouter(ContentContainer);
+const WithRedirect =  WithAuthRedirect(WithRouterContentContainer);
 export const ConnectedContentContainer = connect<MapStateToProps,MapDispatchToProps,OwnPropsType,AppStateType>(mapStateToProps,
     {
         getInfoAndSetUserInfoThunkCreator,
         setUserInfo
     }
-)(WithRouterContentContainer)
+)(WithRedirect)
