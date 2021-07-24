@@ -4,9 +4,9 @@ import {
     addPost,
     updateNewPostText,
     arrayPostsTypes, userProfileInfo,
-} from "../../State/profileReducer";
+} from "../../../State/profileReducer";
 import {ProfileInfo} from "./ProfileInfo";
-import {AppStateType} from "../../State/redux-store";
+import {AppStateType} from "../../../State/redux-store";
 
 
 
@@ -32,4 +32,4 @@ const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
     }
 }
 
-export const ProfileInfoContainer: React.FC<ProfileInfoPropsType> = connect(mapStateToProps, {addPost, updateNewPostText})((props: any) =>  <ProfileInfo title={'as'} {...props} />);
+export const ProfileInfoContainer: React.FC<ProfileInfoPropsType> = connect(mapStateToProps, {addPost, updateNewPostText})((props: any) =>  <ProfileInfo status={'hi there'}  {...props} />);

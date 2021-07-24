@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from "react-redux";
-import {AppStateType} from "../State/redux-store";
-import {getUserLoginDataThunkCreator} from "../State/authReducer/actions";
+import {AppStateType} from "../../State/redux-store";
+import {getUserLoginDataThunkCreator} from "../../State/authReducer/actions";
 import {Header} from "./Header/Header";
 
 

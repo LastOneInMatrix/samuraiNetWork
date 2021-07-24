@@ -3,7 +3,7 @@ import {DialogItem} from './Dialog/Dialog';
 import {Message} from './Message/Message'
 import styles from './Dialogs.module.css';
 import {DialogsConnectedPropsType} from "./DialogsContainer";
-import {InitialStateType} from "../State/dialogReducer";
+import {InitialStateType} from "../../State/dialogReducer";
 import {Redirect} from "react-router-dom";
 
 

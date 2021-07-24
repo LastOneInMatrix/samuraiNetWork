@@ -1,4 +1,4 @@
-import {MessagePropsType} from "../Dialogs/Message/Message";
+import {MessagePropsType} from "../Components/Dialogs/Message/Message";
 import {v1} from "uuid";
 import {ActionsType} from "./redux-store";
 

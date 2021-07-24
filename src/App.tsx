@@ -3,14 +3,14 @@ import {
     Route,
     Redirect
 } from "react-router-dom";
-import {Footer} from "./Footer/Footer";
-import {Navigation} from "./Nav/Navigation";
+import {Footer} from "./Components/Footer/Footer";
+import {Navigation} from "./Components/Nav/Navigation";
 import {UsersConnectedContainer} from "./Users/UsersContainer";
-import {DialogsContainer} from "./Dialogs/DialogsContainer";
+import {DialogsContainer} from "./Components/Dialogs/DialogsContainer";
 import style from './App.module.css';
-import {ConnectedContentContainer} from "./Content/ContentContainer";
-import {HeaderConnectedComponent} from "./Header/HeaderContainer";
-import {Login} from "./Login/Login";
+import {ConnectedContentContainer} from "./Components/Content/ContentContainer";
+import {HeaderConnectedComponent} from "./Components/Header/HeaderContainer";
+import {Login} from "./Components/Login/Login";
 
 
 type AppPropsType = {}

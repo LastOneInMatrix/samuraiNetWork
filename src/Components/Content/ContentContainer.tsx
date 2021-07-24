@@ -1,10 +1,12 @@
-import React, {} from 'react';
-import {Redirect, RouteComponentProps, withRouter} from 'react-router-dom';
+import React, {ComponentType} from 'react';
+import {compose} from "redux";
 import {connect} from "react-redux";
-import {getInfoAndSetUserInfoThunkCreator, setUserInfo, userProfileInfo} from "../State/profileReducer";
-import {AppStateType} from "../State/redux-store";
+import {RouteComponentProps, withRouter} from 'react-router-dom';
+import {getInfoAndSetUserInfoThunkCreator, setUserInfo, userProfileInfo} from "../../State/profileReducer";
+import {AppStateType} from "../../State/redux-store";
 import {Content} from "./Content";
 import {WithAuthRedirect} from "../hoc/WithAuthRedirect";
+
 
 
 
@@ -53,11 +55,23 @@ const mapStateToProps = (state: AppStateType): MapStateToProps => {
     }
 }
 
-const WithRouterContentContainer =  withRouter(ContentContainer);
-const WithRedirect =  WithAuthRedirect(WithRouterContentContainer);
-export const ConnectedContentContainer = connect<MapStateToProps,MapDispatchToProps,OwnPropsType,AppStateType>(mapStateToProps,
-    {
-        getInfoAndSetUserInfoThunkCreator,
-        setUserInfo
-    }
-)(WithRedirect)
+// const WithRouterContentContainer =  withRouter(ContentContainer);
+// const WithRedirect =  WithAuthRedirect(WithRouterContentContainer);
+//
+// export const ConnectedContentContainer = connect<MapStateToProps,MapDispatchToProps,OwnPropsType,AppStateType>(mapStateToProps,
+//     {
+//         getInfoAndSetUserInfoThunkCreator,
+//         setUserInfo
+//     }
+// )(WithRedirect)
+
+export const ConnectedContentContainer = compose<ComponentType<OwnPropsType> >(
+    connect<MapStateToProps,MapDispatchToProps,OwnPropsType,AppStateType>(mapStateToProps,
+        {
+            getInfoAndSetUserInfoThunkCreator,
+            setUserInfo
+        }
+    ),
+    withRouter,
+    WithAuthRedirect
+)(ContentContainer)

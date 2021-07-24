@@ -54,6 +54,7 @@ class UsersContainer extends React.Component<UsersConnectedPropsType, MyState> {
     }
 
     render() {
+        console.log(this.props.isFetching);
         return <>
             {
                 this.props.isFetching ? <Preloader/> : <UserHelper
@@ -83,7 +84,7 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     }
 };
 
-export const UsersConnectedContainer = connect(mapStateToProps,
+export const UsersConnectedContainer: React.FC<UsersPropsTypes> = connect(mapStateToProps,
     ({
         followHandler,
         unFollowHandler,

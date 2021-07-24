@@ -2,13 +2,14 @@ import React, {ChangeEvent} from 'react';
 import style from './ProfileInfo.module.css';
 import {Post} from "../Posts/Post";
 import {mapDispatchToPropsType, mapStateToPropsType} from "./ProfileInfoContainer";
-import {userProfileInfo} from "../../State/profileReducer";
+import {userProfileInfo} from "../../../State/profileReducer";
+import {StatusCom} from "../Status/StatusCom";
 
 
 
-type ProfileInfoPropsType = {
+export type ProfileInfoPropsType = {
     img: string;
-    title: string;
+    status: string;
     placeholder: string;
     userInfo: userProfileInfo | null;
 }  & mapStateToPropsType & mapDispatchToPropsType;
@@ -25,7 +26,8 @@ export const ProfileInfo: React.FC<ProfileInfoPropsType> = (props) => {
     const postsJSX: Array<JSX.Element> = props.posts.map(post => < Post key={post.id} id={post.id} text={post.text}  likes={post.likes} avatar={post.avatar}/>)
 
     return <div className={style.main}>
-        <h3 className={style.title}>{props.title}</h3>
+        <StatusCom status={props.status}/>
+
         <div className={style.info}>
             <div className={style.infoMiniContainer}>
                 <b style={{fontSize: '20px'}}>{props.userInfo?.fullName}</b>

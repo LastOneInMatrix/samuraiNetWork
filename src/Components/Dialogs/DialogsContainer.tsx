@@ -1,13 +1,13 @@
 import React from 'react';
 import {connect} from "react-redux";
-import {Dispatch} from "redux";
+import {compose, Dispatch} from "redux";
 import {
     addMessagesActionCreator,
     changeMessageTextActionCreator,
     InitialStateType
-} from '../State/dialogReducer'
+} from '../../State/dialogReducer'
 import {Dialogs} from "./Dialogs";
-import {AppStateType} from "../State/redux-store";
+import {AppStateType} from "../../State/redux-store";
 import {MstpType, WithAuthRedirect} from "../hoc/WithAuthRedirect";
 
 
@@ -42,5 +42,8 @@ const mapStateToDispatch = (dispatch: Dispatch): mapDispatchToPropsTypes => {   
     }
 };
 
-const  Wrapped = WithAuthRedirect(Dialogs)
-export const  DialogsContainer: React.FC<DialogsPropsTypes> = connect(mapStateToProps, mapStateToDispatch)(Wrapped)
+// export const  DialogsContainer: React.FC<DialogsPropsTypes> = WithAuthRedirect(connect(mapStateToProps, mapStateToDispatch)(Dialogs))
+export const  DialogsContainer = compose<React.ComponentType<DialogsPropsTypes>>(
+    connect(mapStateToProps, mapStateToDispatch),
+    WithAuthRedirect
+)(Dialogs)

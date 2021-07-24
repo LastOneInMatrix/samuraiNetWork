@@ -1,5 +1,5 @@
 import {ActionsType, AppDispatch} from "./redux-store";
-import {PostPropsType} from "../Content/Posts/Post";
+import {PostPropsType} from "../Components/Content/Posts/Post";
 import {v1} from "uuid";
 import {getUserProfile} from "../API/requestAPI";
 
