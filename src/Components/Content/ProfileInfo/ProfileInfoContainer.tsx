@@ -15,6 +15,9 @@ type ProfileInfoPropsType = {
     title: string;
     placeholder: string;
     userInfo: userProfileInfo | null;
+    userId: string;
+    status: string;
+    updateStatusThunk: (status: string) => void;
 }
 export type mapStateToPropsType = {
     posts: arrayPostsTypes,
@@ -32,4 +35,4 @@ const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
     }
 }
 
-export const ProfileInfoContainer: React.FC<ProfileInfoPropsType> = connect(mapStateToProps, {addPost, updateNewPostText})((props: any) =>  <ProfileInfo status={'hi there'}  {...props} />);
+export const ProfileInfoContainer: React.FC<ProfileInfoPropsType> = connect(mapStateToProps, {addPost, updateNewPostText})((props: any) =>  <ProfileInfo  {...props} />);

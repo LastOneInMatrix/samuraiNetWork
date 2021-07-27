@@ -1,7 +1,7 @@
 import {ActionsType, AppDispatch} from "./redux-store";
 import {PostPropsType} from "../Components/Content/Posts/Post";
 import {v1} from "uuid";
-import {getUserProfile} from "../API/requestAPI";
+import {changeProfileStatus, getUserProfile, getUserStatus} from "../API/requestAPI";
 
 export type arrayPostsTypes = Array<PostPropsType>;
 
@@ -9,7 +9,9 @@ export type profilePageType = {
     posts: arrayPostsTypes;
     newPostText: string;
     userProfileInfo: userProfileInfo | null;
+    status: string;
 };
+
 export type userProfileInfo = {
     aboutMe: string | null;
     contacts: {vk: string},
@@ -26,23 +28,40 @@ export type userProfileInfo = {
 const ADD_POST = 'ADD_POST';
 const CHANGE_TEXT = 'CHANGE_TEXT';
 const SET_USER_INFO = 'SET_USER_INFO' as const;
-
+const SET_USER_STATUS = 'SET_USER_STATUS' as const;
 //AC
 export const addPost = () => ({type: ADD_POST} as const);
-export const updateNewPostText = (newText: string) => (
-    {
-        type: CHANGE_TEXT, newPostText: newText
-    } as const
-);
-
+export const updateNewPostText = (newText: string) => ({type: CHANGE_TEXT, newPostText: newText} as const);
 export const setUserInfo = (profileInfo: userProfileInfo) => ({type:SET_USER_INFO, profileInfo});
+export const setStatus = (status: string) => ({type:SET_USER_STATUS, status});
+
+
 export const getInfoAndSetUserInfoThunkCreator = (userIdFromURL: string) =>  (dispatch: AppDispatch) => {
        getUserProfile(userIdFromURL)
        .then((response) => {
            dispatch(setUserInfo({...response.data}));
        });
 }
+export const getUserStatusThunk = (userId: number) => {
+    return (dispatch: AppDispatch) => {
+        getUserStatus(userId.toString())
+            .then((res) => {
+                dispatch(setStatus(res.data));
+            })
 
+    }
+}
+export const updateStatusThunk = (status: string) => {
+    return (dispatch: AppDispatch) => {
+        changeProfileStatus(status)
+            .then(res => {
+               if(res.data.resultCode === 0) {
+                   dispatch(setStatus(status));
+               }
+            })
+
+    }
+}
 
 let initialState:profilePageType =  {
     newPostText: '',
@@ -67,7 +86,8 @@ let initialState:profilePageType =  {
             avatar: 'https://banner2.cleanpng.com/20181231/fta/kisspng-computer-icons-user-profile-portable-network-graph-circle-svg-png-icon-free-download-5-4714-onli-5c2a3809d6e8e6.1821006915462707298803.jpg'
         },
     ],
-    userProfileInfo: null
+    userProfileInfo: null,
+    status: ''
 }
 
 export const profileReducer = (state: profilePageType = initialState, action: ActionsType):profilePageType => {
@@ -88,6 +108,9 @@ export const profileReducer = (state: profilePageType = initialState, action: Ac
             return {...state, newPostText: action.newPostText};
         case "SET_USER_INFO": {
             return {...state, userProfileInfo: action.profileInfo}
+        }
+        case "SET_USER_STATUS": {
+            return {...state, status: action.status}
         }
         default:
             return state;

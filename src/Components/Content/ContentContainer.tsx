@@ -2,7 +2,12 @@ import React, {ComponentType} from 'react';
 import {compose} from "redux";
 import {connect} from "react-redux";
 import {RouteComponentProps, withRouter} from 'react-router-dom';
-import {getInfoAndSetUserInfoThunkCreator, setUserInfo, userProfileInfo} from "../../State/profileReducer";
+import {
+    getInfoAndSetUserInfoThunkCreator, getUserStatusThunk,
+    setUserInfo,
+    updateStatusThunk,
+    userProfileInfo
+} from "../../State/profileReducer";
 import {AppStateType} from "../../State/redux-store";
 import {Content} from "./Content";
 import {WithAuthRedirect} from "../hoc/WithAuthRedirect";
@@ -14,10 +19,14 @@ import {WithAuthRedirect} from "../hoc/WithAuthRedirect";
 type MapStateToProps = {
     userProfileInfo: userProfileInfo | null;
     authorization: boolean
+    myId: number | null;
+    status: string;
 };
 type MapDispatchToProps = {
     setUserInfo: (profileInfo: userProfileInfo) => void;
     getInfoAndSetUserInfoThunkCreator: (userIdFromURL: string) => void;
+    updateStatusThunk: (status: string) => void;
+    getUserStatusThunk: (userId: number) => void;
 }
 type PathParamsType = {
     userId: string;
@@ -37,8 +46,13 @@ type MyStateType = {};
 class ContentContainer extends React.Component<ConnectedPropsType, MyStateType> {
 
     componentDidMount() {
-        const userIdFromURL = this.props.match.params.userId;
-        this.props.getInfoAndSetUserInfoThunkCreator(userIdFromURL);
+
+        if (this.props.myId) {
+            let userIdFromURL = this.props.match.params.userId || this.props.myId.toString();
+            console.log(this.props.myId)
+            this.props.getInfoAndSetUserInfoThunkCreator(userIdFromURL);
+            this.props.getUserStatusThunk(Number(userIdFromURL))
+        }
     };
 
     render() {
@@ -51,25 +65,20 @@ class ContentContainer extends React.Component<ConnectedPropsType, MyStateType> 
 const mapStateToProps = (state: AppStateType): MapStateToProps => {
     return {
         userProfileInfo: state.profilePage.userProfileInfo,
-        authorization: state.authReducer.authorization
+        authorization: state.authReducer.authorization,
+        myId: state.authReducer.id,
+        status: state.profilePage.status
     }
 }
 
-// const WithRouterContentContainer =  withRouter(ContentContainer);
-// const WithRedirect =  WithAuthRedirect(WithRouterContentContainer);
-//
-// export const ConnectedContentContainer = connect<MapStateToProps,MapDispatchToProps,OwnPropsType,AppStateType>(mapStateToProps,
-//     {
-//         getInfoAndSetUserInfoThunkCreator,
-//         setUserInfo
-//     }
-// )(WithRedirect)
 
 export const ConnectedContentContainer = compose<ComponentType<OwnPropsType> >(
     connect<MapStateToProps,MapDispatchToProps,OwnPropsType,AppStateType>(mapStateToProps,
         {
             getInfoAndSetUserInfoThunkCreator,
-            setUserInfo
+            setUserInfo,
+            updateStatusThunk,
+            getUserStatusThunk
         }
     ),
     withRouter,

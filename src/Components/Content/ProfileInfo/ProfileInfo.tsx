@@ -12,6 +12,8 @@ export type ProfileInfoPropsType = {
     status: string;
     placeholder: string;
     userInfo: userProfileInfo | null;
+    userId: string;
+    updateStatusThunk: (status: string) => void;
 }  & mapStateToPropsType & mapDispatchToPropsType;
 
 export const ProfileInfo: React.FC<ProfileInfoPropsType> = (props) => {
@@ -26,13 +28,14 @@ export const ProfileInfo: React.FC<ProfileInfoPropsType> = (props) => {
     const postsJSX: Array<JSX.Element> = props.posts.map(post => < Post key={post.id} id={post.id} text={post.text}  likes={post.likes} avatar={post.avatar}/>)
 
     return <div className={style.main}>
-        <StatusCom status={props.status}/>
+
+        <StatusCom userID={props.userId} status={props.status} updateStatusThunk={props.updateStatusThunk}/>
 
         <div className={style.info}>
             <div className={style.infoMiniContainer}>
                 <b style={{fontSize: '20px'}}>{props.userInfo?.fullName}</b>
                 < img src={props.userInfo?.photos?.small ? props.userInfo?.photos?.small : 'https://e7.pngegg.com/pngimages/709/358/png-clipart-price-toyservice-soil-business-no-till-farming-no-rectangle-pie.png'} alt={'textPicture'}/>
-                <div><b>Статус: </b> <p>{props.userInfo?.aboutMe}</p></div>
+                <div><b>Обо мне: </b> <p>{props.userInfo?.aboutMe}</p></div>
             </div>
             <div className={style.infoMiniContainer}>
                 <b>Контакты: </b>

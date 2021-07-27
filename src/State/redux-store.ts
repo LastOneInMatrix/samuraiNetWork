@@ -4,7 +4,9 @@ import thunk from "redux-thunk";
 import {
     addPost,
     updateNewPostText,
-    profileReducer, setUserInfo
+    profileReducer,
+    setUserInfo,
+    setStatus
 } from "./profileReducer";
 import {showSidebarActionCreator, sidebarReducer} from "./sidebarReducer";
 import {
@@ -34,6 +36,7 @@ export type ActionsType =
     ReturnType<typeof setFetching>|
     ReturnType<typeof setUserInfo>|
     ReturnType<typeof setFollowing>|
+   ReturnType<typeof setStatus>|
     AuthReducerActionsType;  // typeof - берет полностью функцию и создает для нее конретный тип
 
 let rootReducers = combineReducers({

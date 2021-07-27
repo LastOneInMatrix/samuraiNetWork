@@ -54,7 +54,6 @@ class UsersContainer extends React.Component<UsersConnectedPropsType, MyState> {
     }
 
     render() {
-        console.log(this.props.isFetching);
         return <>
             {
                 this.props.isFetching ? <Preloader/> : <UserHelper

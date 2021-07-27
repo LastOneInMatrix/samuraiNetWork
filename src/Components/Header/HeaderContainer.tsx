@@ -22,6 +22,7 @@ class HeaderContainer extends React.Component<HeaderContainerConnectedProps, MyS
     componentDidMount() {
         this.props.getUserLoginDataThunkCreator();
     }
+
     render() {
         return <>
             <Header {...this.props}/>

@@ -1,8 +1,11 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, useEffect, useReducer, useState} from 'react';
 import style from "../ProfileInfo/ProfileInfo.module.css";
+import {getUserStatus} from "../../../API/requestAPI";
 
 type StatusComPropsType = {
-    status: string
+    status: string;
+    userID: string;
+    updateStatusThunk: (status: string) => void;
 }
 export const StatusCom = (props: StatusComPropsType) => {
 
@@ -10,18 +13,24 @@ export const StatusCom = (props: StatusComPropsType) => {
     const [localStatus, setLocalStatus] = useState<string>(props.status)
 
     const changeMode = (mode: string) => (e: React.MouseEvent<HTMLDivElement> & React.FocusEvent<HTMLInputElement>) => {
-        mode === 'on' ? setEditMode(true) : setEditMode(false)
+        if (mode === 'on') {
+            setEditMode(true);
+        } else {
+            setEditMode(false);
+            props.updateStatusThunk(localStatus)
+        }
     }
     const changeText = (e: ChangeEvent<HTMLInputElement>) => {
-        console.log(e.currentTarget.value);
         setLocalStatus(e.currentTarget.value);
-    }
-
+    };
+    useEffect(() =>{
+        // setLocalStatus(props.status);
+    })
     return <>
         {
             !editMode &&
             <div onDoubleClick={changeMode('on')}>
-                <h3 className={style.title}>{localStatus}</h3>
+                <h3 className={style.title}>{props.status || 'No Status'}</h3>
             </div>
         }
         {

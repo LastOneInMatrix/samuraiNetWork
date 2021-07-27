@@ -55,7 +55,7 @@ export const UserHelper = (props: UserOwnPropsType) => {
                             alt={'Just avatar'}
                         />
                     </NavLink>
-                    <em>{user.status}</em>
+                    <b>{user.status}</b>
                     {user.followed ?
                         <button disabled={props.followingInProgress.some((element) => user.id === element)} data-name={'delete'} onClick={followHandler(user, 'delete')}>UnFollow</button>
                         :
