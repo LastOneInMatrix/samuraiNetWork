@@ -7,10 +7,15 @@ type StatusComPropsType = {
     userID: string;
     updateStatusThunk: (status: string) => void;
 }
-export const StatusCom = (props: StatusComPropsType) => {
+export const StatusCom = React.memo((props: StatusComPropsType) => {
 
     const [editMode, setEditMode] = useState<boolean>(false);
-    const [localStatus, setLocalStatus] = useState<string>(props.status)
+    const [localStatus, setLocalStatus] = useState<string>(props.status);
+
+
+    useEffect(() => {
+        setLocalStatus(props.status);
+    }, [props.status])
 
     const changeMode = (mode: string) => (e: React.MouseEvent<HTMLDivElement> & React.FocusEvent<HTMLInputElement>) => {
         if (mode === 'on') {
@@ -23,9 +28,7 @@ export const StatusCom = (props: StatusComPropsType) => {
     const changeText = (e: ChangeEvent<HTMLInputElement>) => {
         setLocalStatus(e.currentTarget.value);
     };
-    useEffect(() =>{
-        // setLocalStatus(props.status);
-    })
+
     return <>
         {
             !editMode &&
@@ -41,4 +44,4 @@ export const StatusCom = (props: StatusComPropsType) => {
         }
 
     </>
-}
+})

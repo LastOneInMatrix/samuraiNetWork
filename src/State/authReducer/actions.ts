@@ -11,13 +11,14 @@ type setUserLoginDataActionType = {
         "id": number|null,
         "login": string|null,
         "email": string|null
+        authorization: boolean
     }
 }
 
-export const setUserLoginData = (id: number|null, login: string|null, email: string|null): setUserLoginDataActionType => {
+export const setAuthUserLoginData = (id: number|null, login: string|null, email: string|null,  authorization: boolean): setUserLoginDataActionType => {
     return {
         type: ACTIONS_TYPE.SET_USER_DATA,
-        payload: {id, login, email}
+        payload: {id, login, email,  authorization}
     }
 }
 export const getUserLoginDataThunkCreator = () => {
@@ -25,7 +26,7 @@ export const getUserLoginDataThunkCreator = () => {
         getLoginInformationForHeader().then(response => {
             if(response.data.resultCode === 0) {
                 const {id, login, email} = response.data.data;
-                dispatch(setUserLoginData(id, login, email));
+                dispatch(setAuthUserLoginData(id, login, email, true));
             }
         }); // компонент был вмантирован в DOM
     }

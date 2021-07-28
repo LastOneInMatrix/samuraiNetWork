@@ -39,5 +39,11 @@ export const getUserStatus = (userId: string) => {
 export const changeProfileStatus = (status: string) => {
     return axiosInstance.put<CommonPutType>(`profile/status`, {status})
 }
+export const login = (email: string, password: string, rememberMe: boolean)  => {
+    return axiosInstance.post(`auth/login`, {email, password, rememberMe})
+}
+export const logOut = ()  => {
+    return axiosInstance.delete(`auth/login`)
+}
 
 

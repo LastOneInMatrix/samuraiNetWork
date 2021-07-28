@@ -49,9 +49,8 @@ class ContentContainer extends React.Component<ConnectedPropsType, MyStateType> 
 
         if (this.props.myId) {
             let userIdFromURL = this.props.match.params.userId || this.props.myId.toString();
-            console.log(this.props.myId)
+            this.props.getUserStatusThunk(Number(userIdFromURL));
             this.props.getInfoAndSetUserInfoThunkCreator(userIdFromURL);
-            this.props.getUserStatusThunk(Number(userIdFromURL))
         }
     };
 

@@ -3,6 +3,7 @@ import {connect} from "react-redux";
 import {AppStateType} from "../../State/redux-store";
 import {getUserLoginDataThunkCreator} from "../../State/authReducer/actions";
 import {Header} from "./Header/Header";
+import {logOutUserThunk} from "../../State/loginFormReducer";
 
 
 export type MapStateToPropsType = {
@@ -12,6 +13,7 @@ export type MapStateToPropsType = {
 }
 export type MapDispatchToPropsType = {
     getUserLoginDataThunkCreator: () => void;
+    logOutUserThunk: () => void;
 }
 export type HeaderContainerConnectedProps = MapStateToPropsType & MapDispatchToPropsType;
 type MyState = {
@@ -20,7 +22,7 @@ type MyState = {
 
 class HeaderContainer extends React.Component<HeaderContainerConnectedProps, MyState> {
     componentDidMount() {
-        this.props.getUserLoginDataThunkCreator();
+        // this.props.getUserLoginDataThunkCreator();
     }
 
     render() {
@@ -41,6 +43,7 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
 export const HeaderConnectedComponent =
     connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppStateType>(mapStateToProps,
         {
-            getUserLoginDataThunkCreator
+            getUserLoginDataThunkCreator,
+            logOutUserThunk
         }
     )(HeaderContainer);
