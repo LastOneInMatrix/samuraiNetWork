@@ -19,8 +19,10 @@ export const setAuthUserLoginData = (id: number|null, login: string|null, email:
     return {
         type: ACTIONS_TYPE.SET_USER_DATA,
         payload: {id, login, email,  authorization}
-    }
+    } as const
 }
+
+
 export const getUserLoginDataThunkCreator = () => {
     return (dispatch: AppDispatch) => {
         getLoginInformationForHeader().then(response => {

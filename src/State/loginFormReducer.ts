@@ -9,7 +9,8 @@ export enum ACTIONS_TYPE {
 export type LoginPageType = {
     "email": string,
     "password": string,
-    "rememberMe": boolean
+    "rememberMe": boolean,
+    "errorMessage": string
 };
 type setUserLoginDataActionType = {
     type: ACTIONS_TYPE.SET_USER_LOGIN_DATA,
@@ -25,26 +26,41 @@ export const setUserLoginData = (email: string, password: string, rememberMe: bo
         payload: {email, password, rememberMe}
     }
 };
+export const setErrorMessages = (message: string) => {
+    return {
+        type: 'SET_ERROR_MESSAGES',
+        message
+    } as const
+}
+export type setErrorMessagesACType = ReturnType<typeof setErrorMessages>
+
+
 export const setUserLoginDataThunk = (email: string, password: string, rememberMe: boolean) => {
     return (dispatch: AppDispatch) => {
         login(email, password, rememberMe)
             .then((res) => {
                 if(res.data.resultCode === 0) {
-                    //@ts-ignore
+                    // @ts-ignore
                     dispatch(getUserLoginDataThunkCreator());
                     dispatch(setUserLoginData(email, password, rememberMe));
+                }
+                else {
+                    dispatch(setErrorMessages(res.data.messages[0]));
                 }
               }
             )
     }
 };
 
+
+
 export const logOutUserThunk = () => {
     return (dispatch: AppDispatch) => {
         logOut().then( res => {
             if(res.data.resultCode === 0) {
-                dispatch(setUserLoginData('', '', false));
                 dispatch(setAuthUserLoginData(null, null, null, false));
+                dispatch(setUserLoginData('', '', false));
+                dispatch(setErrorMessages(''));
                 }
             }
         )
@@ -56,7 +72,8 @@ export const logOutUserThunk = () => {
 let initialState: LoginPageType = {
     "email": '',
     "password": '',
-    "rememberMe": false
+    "rememberMe": false,
+    'errorMessage': ''
 }
 export const loginReducer = (state: LoginPageType=initialState, action: ActionsType):LoginPageType => {
             switch(action.type) {
@@ -64,6 +81,12 @@ export const loginReducer = (state: LoginPageType=initialState, action: ActionsT
                     return {
                         ...state,
                         ...action.payload
+                    }
+                }
+                case "SET_ERROR_MESSAGES": {
+                    return {
+                        ...state,
+                        errorMessage: action.message
                     }
                 }
             }

@@ -13,6 +13,7 @@ const initialState: AuthInitialStateType = {
     login: null,
     email: null,
     authorization: false,
+
 }
 
 export const authReducer = (state: AuthInitialStateType = initialState, action: AuthReducerActionsType):AuthInitialStateType  => {

@@ -20,7 +20,7 @@ import {
 } from "./userReducer";
 import {AuthReducerActionsType} from "./authReducer/actions";
 import {authReducer} from "./authReducer/authReducer";
-import {loginReducer, setUserLoginData} from "./loginFormReducer";
+import {loginReducer, setErrorMessagesACType, setUserLoginData} from "./loginFormReducer";
 
 
 export type ActionsType =
@@ -39,6 +39,7 @@ export type ActionsType =
     ReturnType<typeof setFollowing>|
    ReturnType<typeof setStatus>|
     ReturnType<typeof setUserLoginData>|
+    setErrorMessagesACType|
     AuthReducerActionsType;  // typeof - берет полностью функцию и создает для нее конретный тип
 
 let rootReducers = combineReducers({
