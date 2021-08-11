@@ -12,6 +12,14 @@ import {
 } from "../State/userReducer";
 import {UserHelper} from "./User";
 import {Preloader} from "../Common/Preloader/Preloader";
+import {
+    getCurrentPage,
+    getFollowingProgress,
+    getIsFetching,
+    getPageSize,
+    getTotalSize,
+    getUser
+} from "../State/users/userSelector";
 
 
 export type UsersPropsTypes = {
@@ -74,12 +82,12 @@ class UsersContainer extends React.Component<UsersConnectedPropsType, MyState> {
 
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
-        users: state.usersReducer.users,
-        pageSize: state.usersReducer.pageSize,
-        totalSize: state.usersReducer.totalSize,
-        currentPage: state.usersReducer.currentPage,
-        isFetching: state.usersReducer.isFetching,
-        followingInProgress: state.usersReducer.followingInProgress
+        users: getUser(state),
+        pageSize: getPageSize(state),
+        totalSize: getTotalSize(state),
+        currentPage: getCurrentPage(state),
+        isFetching: getIsFetching(state),
+        followingInProgress: getFollowingProgress(state)
     }
 };
 
