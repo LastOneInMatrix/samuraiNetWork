@@ -25,7 +25,7 @@ export const setAuthUserLoginData = (id: number|null, login: string|null, email:
 
 export const getUserLoginDataThunkCreator = () => {
     return (dispatch: AppDispatch) => {
-        getLoginInformationForHeader().then(response => {
+        return getLoginInformationForHeader().then(response => {
             if(response.data.resultCode === 0) {
                 const {id, login, email} = response.data.data;
                 dispatch(setAuthUserLoginData(id, login, email, true));

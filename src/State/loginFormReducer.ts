@@ -1,6 +1,7 @@
-import {ActionsType, AppDispatch} from "./redux-store";
+import {ActionsType, AppDispatch, AppStateType} from "./redux-store";
 import {login, logOut} from "../API/requestAPI";
 import {getUserLoginDataThunkCreator, setAuthUserLoginData} from "./authReducer/actions";
+import {ThunkDispatch} from "redux-thunk";
 
 
 export enum ACTIONS_TYPE {
@@ -36,11 +37,10 @@ export type setErrorMessagesACType = ReturnType<typeof setErrorMessages>
 
 
 export const setUserLoginDataThunk = (email: string, password: string, rememberMe: boolean) => {
-    return (dispatch: AppDispatch) => {
+    return (dispatch:  ThunkDispatch<AppStateType, unknown, ActionsType>) => {
         login(email, password, rememberMe)
             .then((res) => {
                 if(res.data.resultCode === 0) {
-                    // @ts-ignore
                     dispatch(getUserLoginDataThunkCreator());
                     dispatch(setUserLoginData(email, password, rememberMe));
                 }
@@ -55,7 +55,7 @@ export const setUserLoginDataThunk = (email: string, password: string, rememberM
 
 
 export const logOutUserThunk = () => {
-    return (dispatch: AppDispatch) => {
+    return (dispatch:  ThunkDispatch<AppStateType, unknown, ActionsType>) => {
         logOut().then( res => {
             if(res.data.resultCode === 0) {
                 dispatch(setAuthUserLoginData(null, null, null, false));

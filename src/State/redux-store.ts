@@ -21,6 +21,7 @@ import {
 import {AuthReducerActionsType} from "./authReducer/actions";
 import {authReducer} from "./authReducer/authReducer";
 import {loginReducer, setErrorMessagesACType, setUserLoginData} from "./loginFormReducer";
+import {appReducer, initializedSuccessActionType} from "./app-reducer";
 
 
 export type ActionsType =
@@ -40,7 +41,8 @@ export type ActionsType =
    ReturnType<typeof setStatus>|
     ReturnType<typeof setUserLoginData>|
     setErrorMessagesACType|
-    AuthReducerActionsType;  // typeof - берет полностью функцию и создает для нее конретный тип
+    AuthReducerActionsType|
+    initializedSuccessActionType;  // typeof - берет полностью функцию и создает для нее конретный тип
 
 let rootReducers = combineReducers({
     profilePage: profileReducer,
@@ -48,7 +50,8 @@ let rootReducers = combineReducers({
     sidebar: sidebarReducer,
     usersReducer: usersReducer,
     authReducer: authReducer,
-    loginReducer: loginReducer
+    loginReducer: loginReducer,
+    appReducer: appReducer
 });
 export type AppStateType = ReturnType<typeof rootReducers> //тип стейта
 

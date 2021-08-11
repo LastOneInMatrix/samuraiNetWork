@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import { setUserLoginDataThunk} from "../../../State/loginFormReducer";
 import {AppStateType} from "../../../State/redux-store";
 import {Redirect} from "react-router-dom";
-import {Simulate} from "react-dom/test-utils";
+import style from './LoginForm.module.css'
 
 
 
@@ -37,7 +37,7 @@ export default function LoginForm(props: LoginFormPropsType) {
     console.log(errorMessages)
     return (
         <>
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form className={style.form}onSubmit={handleSubmit(onSubmit)}>
                 <div>
                     <b>Login</b>
                     <input style={{border: errors.password ? '2px solid red' : ''}} {...register('email', {required: true})} defaultValue={email} />
@@ -45,7 +45,7 @@ export default function LoginForm(props: LoginFormPropsType) {
                 </div>
                 <div>
                     <b>Password</b>
-                    <input  style={{border: errors.password ? '2px solid red' : '', margin: '15px 0px'}} {...register("password", {required: true})} defaultValue={password} type='password' />
+                    <input  style={{border: errors.password ? '2px solid red' : '', marginTop: '5px'}} {...register("password", {required: true})} defaultValue={password} type='password' />
                     <pre>{errors.password && 'password field required'}</pre>
                 </div>
                 <input {...register("rememberMe")} type='checkbox' />

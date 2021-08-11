@@ -12,7 +12,7 @@ export type MapStateToPropsType = {
     authorization: boolean;
 }
 export type MapDispatchToPropsType = {
-    getUserLoginDataThunkCreator: () => void;
+
     logOutUserThunk: () => void;
 }
 export type HeaderContainerConnectedProps = MapStateToPropsType & MapDispatchToPropsType;
@@ -22,9 +22,8 @@ type MyState = {
 
 class HeaderContainer extends React.Component<HeaderContainerConnectedProps, MyState> {
     componentDidMount() {
-        // this.props.getUserLoginDataThunkCreator();
+        console.log('Hi')
     }
-
     render() {
         return <>
             <Header {...this.props}/>
@@ -43,7 +42,6 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
 export const HeaderConnectedComponent =
     connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppStateType>(mapStateToProps,
         {
-            getUserLoginDataThunkCreator,
             logOutUserThunk
         }
     )(HeaderContainer);
