@@ -62,6 +62,7 @@ class UsersContainer extends React.Component<UsersConnectedPropsType, MyState> {
     }
 
     render() {
+        console.log('rednder')
         return <>
             {
                 this.props.isFetching ? <Preloader/> : <UserHelper
@@ -81,6 +82,7 @@ class UsersContainer extends React.Component<UsersConnectedPropsType, MyState> {
 }
 
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
+
     return {
         users: getUser(state),
         pageSize: getPageSize(state),

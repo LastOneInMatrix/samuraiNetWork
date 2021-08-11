@@ -28,7 +28,7 @@ const initialState = {
     pageSize: 20,
     currentPage: 1,
     isFetching: false,
-    followingInProgress: [18257]
+    followingInProgress: [18257],
 }
 
 
@@ -44,7 +44,6 @@ export const usersReducer = (state: initialStateType = initialState, action: Act
                 })
             }
         }
-
         case 'UNFOLLOW': {
             return {
                 ...state,
