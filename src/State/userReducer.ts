@@ -1,5 +1,6 @@
 import {ActionsType, AppDispatch} from "./redux-store";
 import {getUser, setFollowUnfollow} from "../API/requestAPI";
+import {Dispatch} from "redux";
 
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
@@ -80,8 +81,9 @@ export const getTotalCount = (totalSize: number) => ({type: GET_TOTAL_COUNT, tot
 export const setFetching = (isFetching: boolean) => ({type:SET_FETCHING, isFetching} as const);
 export const setFollowing = (followingInProgress: Array<number>) => ({type:TOGGLE_IS_FOLLOWING, followingInProgress} as const);
 
+//Thunk
 export const getUserThunkCreator = (currentPage: number, pageSize: number) => {
-   return (dispatch: AppDispatch) => {
+   return (dispatch: Dispatch<ActionsType>) => {
        dispatch(setFetching(true));
        getUser(currentPage, pageSize).then((data) => {
 
@@ -92,9 +94,8 @@ export const getUserThunkCreator = (currentPage: number, pageSize: number) => {
        })
    }
 }
-
 export const followUnfollowThunkCreator = (user: userType, button: 'post' | 'delete') => {
-    return (dispatch: AppDispatch) => {
+    return (dispatch: Dispatch<ActionsType>) => {
         debugger;
         dispatch(setFollowing([user.id]));
         setFollowUnfollow(user.id, button)

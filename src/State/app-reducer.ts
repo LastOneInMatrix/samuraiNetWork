@@ -20,7 +20,7 @@ const initializedSuccess = () => {
 }
 
 export const initialize = () => {
-    return (dispatch: ThunkDispatch<AppStateType, unknown, ActionsType>) => {  //TODO
+    return (dispatch: ThunkDispatch<AppStateType, unknown, ActionsType>) => { //типизация dispatch в том случае если будет санка диспатчиться внутри
         const promise = dispatch(getUserLoginDataThunkCreator())
         Promise.all([promise]).then(res => {
             dispatch(initializedSuccess())

@@ -15,7 +15,8 @@ export const StatusCom = React.memo((props: StatusComPropsType) => {
 
     useEffect(() => {
         setLocalStatus(props.status);
-    }, [props.status])
+    }, [props.status]);
+
 
     const changeMode = (mode: string) => (e: React.MouseEvent<HTMLDivElement> & React.FocusEvent<HTMLInputElement>) => {
         if (mode === 'on') {
